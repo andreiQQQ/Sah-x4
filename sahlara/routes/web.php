@@ -12,8 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('sessions');
 });
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/sessions', 'GameSessionController@index')->name('sessions');
+Route::get('/session/create', 'GameSessionController@create')->name('session.create');
+Route::post('/session/store', 'GameSessionController@store')->name('session.store');
+
+Route::get('/session/{session}', 'GameSessionController@show')->name('session.show');
