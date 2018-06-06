@@ -33,7 +33,10 @@
                             </div>
                         </div>
                         <div class="row">
-                        <game-table></game-table>
+                        <game-table
+                                :game-pieces="{{ json_encode($session->game_bag) }}"
+                        >
+                        </game-table>
                         </div>
                     </div>
                 </div>

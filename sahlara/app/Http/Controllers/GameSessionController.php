@@ -82,6 +82,7 @@ class GameSessionController extends Controller
         $subscription->session_id = $session->id;
         $subscription->side = $otherSubscriptions->count() + 1;
         $subscription->save();
+        $otherSubscriptions->push($subscription);
 
         broadcast(new SubscribeEvent(Auth::user(), $session))->toOthers();
 
