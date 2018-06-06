@@ -69,6 +69,8 @@ function initBoard() {
     gameBoard.pieces[100] = PIECES.K4;
 
 }
+
+//verifica daca piesa de pe patratul sq, care apartine de side este atacata
 function isEnemyPawn(sq, side) {
     "use strict";
     var s = Math.trunc((gameBoard.pieces[sq] - 1) / 6 + 1);
