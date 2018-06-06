@@ -33,14 +33,7 @@
                             </div>
                         </div>
                         <div class="row">
-                        <header>
-                        {{--<h1>Chess x 4</h1>--}}
-                        </header>
-                        <div id="control">
-                        {{--<button type="button" id="NewGameButton">New Game</button><br/>--}}
-                        </div>
-                        <div id="Board">
-                        </div>
+                        <game-table></game-table>
                         </div>
                     </div>
                 </div>
