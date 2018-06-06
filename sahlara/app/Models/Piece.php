@@ -50,7 +50,12 @@ class Piece implements \JsonSerializable
     public static function fromArray(array $bag)
     {
         $piece = new Piece();
-        $piece->subscriber = GameSubscription::find($bag['subscriber_id']);
+        $session = GameSubscription::find($bag['subscriber_id']);
+        if (!$session) {
+            throw new \Exception('Not found session');
+        }
+
+        $piece->subscriber = $session;
         $piece->code = $bag['code'];
         $piece->position = $bag['position'];
 

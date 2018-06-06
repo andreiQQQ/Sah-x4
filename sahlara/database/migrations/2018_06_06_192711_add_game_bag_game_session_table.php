@@ -15,6 +15,7 @@ class AddGameBagGameSessionTable extends Migration
     {
         Schema::table('game_sessions', function (Blueprint $table) {
             $table->longText('game_bag');
+            $table->unsignedInteger('current_user_id');
         });
     }
 

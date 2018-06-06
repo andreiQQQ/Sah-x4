@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use App\Entities\GameSession;
 use App\Models\Piece;
+use App\User;
 
 class GameProvider
 {
@@ -106,5 +107,18 @@ class GameProvider
         }, []);
 
         return $gameTable;
+    }
+
+    /**
+     * @param GameSession $session
+     * @param array $placeFromPosition [y, x]
+     * @param array $placeToPosition [y, x]
+     */
+    public function performAction(GameSession $session, $placeFromPosition, $placeToPosition)
+    {
+        $gameTable = $session->game_bag;
+        $placeFromPiece = Piece::fromArray($gameTable[$placeFromPosition[0]][$placeFromPosition[1]]);
+        $placeToPiece = Piece::fromArray($gameTable[$placeToPosition[0]][$placeToPosition[1]]);
+
     }
 }
