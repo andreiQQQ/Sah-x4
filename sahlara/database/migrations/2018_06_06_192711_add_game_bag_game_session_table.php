@@ -15,7 +15,7 @@ class AddGameBagGameSessionTable extends Migration
     {
         Schema::table('game_sessions', function (Blueprint $table) {
             $table->longText('game_bag');
-            $table->unsignedInteger('current_user_id');
+            $table->unsignedInteger('current_subscription_id');
         });
     }
 
@@ -28,6 +28,7 @@ class AddGameBagGameSessionTable extends Migration
     {
         Schema::table('game_sessions', function (Blueprint $table) {
             $table->dropColumn('game_bag');
+            $table->dropColumn('current_subscription_id');
         });
     }
 }

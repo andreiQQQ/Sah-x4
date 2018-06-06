@@ -33,6 +33,13 @@ class GameSubscription extends Model
     protected $table = 'game_session_subscribers';
 
     /**
+     * @var array
+     */
+    protected $guarded = [
+        'created_at', 'updated_at',
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function session()

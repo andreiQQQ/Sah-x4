@@ -34,7 +34,7 @@
                         </div>
                         <div class="row">
                         <game-table
-                                :game-pieces="{{ json_encode($session->game_bag) }}"
+                                :session="{{ json_encode($session) }}"
                         >
                         </game-table>
                         </div>

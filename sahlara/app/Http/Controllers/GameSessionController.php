@@ -60,6 +60,9 @@ class GameSessionController extends Controller
      */
     public function show(GameSession $session)
     {
+        $session->subscribers;
+        $session->subscriptions;
+
         return view('sessions.show', [
             'sessionUser' => $session->user,
             'currentUser' => Auth::user(),
@@ -86,7 +89,8 @@ class GameSessionController extends Controller
 
         broadcast(new SubscribeEvent(Auth::user(), $session))->toOthers();
 
-        if ($session->subscribers->count() === 4) {
+        if ($session->subscriptions->count() === 4) {
+            $session->current_subscription_id = $session->subscriptions[0]->id;
             $gameProvider = new GameProvider();
             $session->game_bag = $gameProvider->initGameTable($session);
             $session->save();

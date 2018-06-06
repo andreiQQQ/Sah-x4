@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use App\Entities\GameSession;
 use App\Entities\GameSubscription;
 use App\User;
 
@@ -16,9 +17,9 @@ class Piece implements \JsonSerializable
     const PAWN = 'pawn';
 
     /**
-     * @var User
+     * @var GameSubscription
      */
-    public $subscriber;
+    public $subscription;
 
     /**
      * @var string
@@ -32,13 +33,13 @@ class Piece implements \JsonSerializable
 
     /**
      * Piece constructor.
-     * @param User $subscriber
-     * @param string $code
+     * @param GameSession $subscription
+     * @param $code
      * @param array $position
      */
-    public function __construct(User $subscriber, $code, array $position)
+    public function __construct(GameSubscription $subscription, $code, array $position)
     {
-        $this->subscriber = $subscriber;
+        $this->subscription = $subscription;
         $this->code = $code;
         $this->position = $position;
     }
@@ -46,16 +47,17 @@ class Piece implements \JsonSerializable
     /**
      * @param array $bag
      * @return Piece
+     * @throws \Exception
      */
     public static function fromArray(array $bag)
     {
         $piece = new Piece();
-        $session = GameSubscription::find($bag['subscriber_id']);
+        $session = GameSubscription::find($bag['subscription_id']);
         if (!$session) {
             throw new \Exception('Not found session');
         }
 
-        $piece->subscriber = $session;
+        $piece->subscription = $session;
         $piece->code = $bag['code'];
         $piece->position = $bag['position'];
 
@@ -68,7 +70,7 @@ class Piece implements \JsonSerializable
     public function toJson()
     {
         return [
-            'subscriber_id' => $this->subscriber->id,
+            'subscription_id' => $this->subscription->id,
             'code' => $this->code,
             'position' => $this->position,
         ];

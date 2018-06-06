@@ -9,28 +9,37 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Entities\GameSession
  *
- * @mixin \Eloquent
  * @property int $id
  * @property string $name
  * @property int $status
  * @property int $user_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property int $current_user_id
+ * @property array $game_bag
+ * @property int $current_subscription_id
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $subscribers
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Entities\GameSubscription[] $subscriptions
+ * @property-read \App\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereCurrentSubscriptionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereCurrentUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereGameBag($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereUserId($value)
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $subscribers
- * @property-read \App\User $user
- * @property array $game_bag
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereGameBag($value)
+ * @mixin \Eloquent
  */
 class GameSession extends Model
 {
     protected $casts = [
         'game_bag' => 'array'
+    ];
+
+    protected $guarded = [
+        'created_at', 'updated_at'
     ];
 
     /**
@@ -54,5 +63,13 @@ class GameSession extends Model
             'id',
             'user_id'
         );
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany(GameSubscription::class, 'session_id');
     }
 }

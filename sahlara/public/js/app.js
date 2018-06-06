@@ -52971,7 +52971,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     props: {
-        gamePieces: {
+        session: {
             type: Object
         }
     },
@@ -52990,12 +52990,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
 
                 try {
-                    squareClasses[row][column].piece = this.gamePieces[row][column];
+                    squareClasses[row][column].piece = this.session.game_bag[row][column];
                 } catch (e) {}
             }
         }
 
         this.gameTable = squareClasses;
+        this.session.subscriptions = this.session.subscriptions.reduce(function (carry, subscription) {
+            carry[subscription.id] = subscription;
+
+            return carry;
+        }, {});
     },
 
 
