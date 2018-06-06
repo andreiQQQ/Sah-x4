@@ -126,7 +126,7 @@ function SqAttacked(sq, own_side, enemy_side) {
         return 0;
     }
     var i, enemy, source;
-    /*
+    
     //attacked by pawn
     if (isEnemyPawn(sq - 13, own_side) === 1 || isEnemyPawn(sq - 15, own_side) === 1) {
         if (enemy_side == 1) 
@@ -300,7 +300,7 @@ function SqAttacked(sq, own_side, enemy_side) {
     if (enemy == enemy_side) {
         return 1;
     }
-    */
+    
     
     //attacked by king
     enemy = isEnemyKing(sq - 13, own_side);
