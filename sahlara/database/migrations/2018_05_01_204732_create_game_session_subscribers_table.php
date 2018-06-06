@@ -17,6 +17,7 @@ class CreateGameSessionSubscribersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('session_id');
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('side');
             $table->timestamps();
             $table->foreign('session_id')->references('id')->on('game_sessions');
             $table->foreign('user_id')->references('id')->on('users');

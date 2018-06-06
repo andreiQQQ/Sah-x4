@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSubscription whereSessionId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSubscription whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSubscription whereUserId($value)
+ * @property int $side
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSubscription whereSide($value)
  */
 class GameSubscription extends Model
 {

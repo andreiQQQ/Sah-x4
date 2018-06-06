@@ -32,16 +32,16 @@
 
                             </div>
                         </div>
-                        {{--<div class="row">--}}
-                        {{--<header>--}}
+                        <div class="row">
+                        <header>
                         {{--<h1>Chess x 4</h1>--}}
-                        {{--</header>--}}
-                        {{--<div id="control">--}}
+                        </header>
+                        <div id="control">
                         {{--<button type="button" id="NewGameButton">New Game</button><br/>--}}
-                        {{--</div>--}}
-                        {{--<div id="Board">--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
+                        </div>
+                        <div id="Board">
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>

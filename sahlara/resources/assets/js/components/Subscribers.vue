@@ -25,8 +25,10 @@
             this.updateSubscribers();
             Echo.private(`sah.subscriber.${this.gameSession}`)
                 .listen('SubscribeEvent', (e) => {
-                    console.log('zbs');
                     this.subscribers.push(e.user);
+                    this.$emit('notification', {
+                        text: `User '${e.user.name}' subscribed to this game.`
+                    });
                 });
         },
 

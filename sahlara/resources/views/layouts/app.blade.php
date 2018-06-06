@@ -77,6 +77,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <notification></notification>
     </div>
 </body>
 </html>

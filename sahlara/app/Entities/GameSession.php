@@ -24,9 +24,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereUserId($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $subscribers
  * @property-read \App\User $user
+ * @property array $game_bag
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereGameBag($value)
  */
 class GameSession extends Model
 {
+    protected $casts = [
+        'game_bag' => 'array'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

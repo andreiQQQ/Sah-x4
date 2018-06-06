@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Entities\GameSession;
 use App\Entities\GameSubscription;
+use App\Events\GameEvent;
 use App\Events\SubscribeEvent;
+use App\Providers\GameProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,12 +75,23 @@ class GameSessionController extends Controller
     {
         $this->authorize('subscribe', $session);
 
+        $otherSubscriptions = $session->subscribers;
+
         $subscription = new GameSubscription();
         $subscription->user_id = Auth::id();
         $subscription->session_id = $session->id;
+        $subscription->side = $otherSubscriptions->count() + 1;
         $subscription->save();
 
         broadcast(new SubscribeEvent(Auth::user(), $session))->toOthers();
+
+        if ($session->subscribers->count() === 4) {
+            $gameProvider = new GameProvider();
+            $session->game_bag = $gameProvider->initGameTable($session);
+            $session->save();
+
+            broadcast(new GameEvent($session));
+        }
 
         return redirect()->route('session.show', [
             'session' => $session,
