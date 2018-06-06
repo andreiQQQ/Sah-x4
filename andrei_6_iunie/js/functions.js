@@ -70,7 +70,7 @@ function initBoard() {
 
 }
 
-//verifica daca pe pozitia sq e o piesa inamica jucatorului "side"
+//verifica daca pe pozitia sq e o piesa inamica fata de jucatorul "side"
 function isEnemyPawn(sq, side) {
     "use strict";
     var s = Math.trunc((gameBoard.pieces[sq] - 1) / 6 + 1);
