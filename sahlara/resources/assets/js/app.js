@@ -18,6 +18,7 @@ window.Vue = require('vue');
 
 Vue.component('subscribers', require('./components/Subscribers.vue'));
 Vue.component('notification', require('./components/Notification.vue'));
+Vue.component('game-table', require('./components/GameTable.vue'));
 
 const app = new Vue({
     el: '#app'
