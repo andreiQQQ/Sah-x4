@@ -5,6 +5,7 @@
 .square {
 	width: 65px;
 	height: 65px;
+	border-width: 0;
 }
 
 .dark {
@@ -17,6 +18,14 @@
 
 .sqSelected {
 	background-color:#216778;
+}
+
+.sqPossible {
+	border: 2px solid teal;
+}
+
+.attacked {
+	border: 2px solid red;
 }
 
 .hidden { background-color: white !important }

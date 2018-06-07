@@ -14,8 +14,8 @@ class AddGameBagGameSessionTable extends Migration
     public function up()
     {
         Schema::table('game_sessions', function (Blueprint $table) {
-            $table->longText('game_bag');
-            $table->unsignedInteger('current_subscription_id');
+            $table->longText('game_bag')->nullable();
+            $table->unsignedInteger('current_subscription_id')->nullable();
         });
     }
 
