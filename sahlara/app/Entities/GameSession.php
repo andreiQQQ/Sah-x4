@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\Entities\GameSubscription $currentSubscription
  */
 class GameSession extends Model
 {
@@ -71,5 +72,13 @@ class GameSession extends Model
     public function subscriptions()
     {
         return $this->hasMany(GameSubscription::class, 'session_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function currentSubscription()
+    {
+        return $this->hasOne(GameSubscription::class);
     }
 }

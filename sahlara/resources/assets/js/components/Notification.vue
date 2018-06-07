@@ -23,7 +23,7 @@
         props: {
             timeout: {
                 type: Number,
-                default: 4000,
+                default: 6000,
             },
         },
 

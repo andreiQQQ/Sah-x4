@@ -52847,7 +52847,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: {
         timeout: {
             type: Number,
-            default: 4000
+            default: 6000
         }
     },
 
