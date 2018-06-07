@@ -25,3 +25,5 @@ Route::post('/session/store', 'GameSessionController@store')->name('session.stor
 Route::get('/session/{session}', 'GameSessionController@show')->name('session.show');
 Route::get('/session/{session}/subscribe', 'GameSessionController@subscribe')->name('session.subscribe');
 Route::get('/session/{session}/subscribers', 'GameSessionController@subscribers')->name('session.subscribers');
+
+Route::post('/game/{session}/handle', 'GameController@handle')->name('game.handle');

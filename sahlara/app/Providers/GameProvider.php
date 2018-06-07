@@ -5,10 +5,29 @@ namespace App\Providers;
 
 use App\Entities\GameSession;
 use App\Models\Piece;
+use App\Providers\Helper\PieceValidator;
 use App\User;
 
 class GameProvider
 {
+    /**
+     * @var PieceValidator
+     */
+    protected $pieceValidator;
+
+    /**
+     * GameProvider constructor.
+     */
+    public function __construct()
+    {
+        $this->pieceValidator = new PieceValidator();
+    }
+
+    /**
+     * @param GameSession $session
+     * @return array|mixed
+     * @throws \Exception
+     */
     public function initGameTable(GameSession $session)
     {
         $subscriptions = $session->subscriptions;
@@ -123,11 +142,11 @@ class GameProvider
 
     /**
      * @param GameSession $session
-     * @param $positionFrom
-     * @param $positionTo
+     * @param array $positionFrom
+     * @param array $positionTo
      * @return bool
      */
-    public function performAction(GameSession $session, $positionFrom, $positionTo)
+    public function performAction(GameSession $session, array $positionFrom, array $positionTo)
     {
         if ($positionFrom === $positionTo) {
             return false;
@@ -141,6 +160,20 @@ class GameProvider
         if (!$pieceFrom || $pieceFrom->subscription->id !== $session->current_subscription_id) {
             return false;
         }
+
+        $pieceTo = $this->getPiece($session, $positionTo);
+        if ($this->pieceValidator->validatePieceToPosition($pieceFrom, $positionTo, $pieceTo !== false)) {
+            return false;
+        }
+
+        $gameTable = $session->game_bag;
+        $gameTable[$positionTo[0]][$positionTo[1]] = $gameTable[$positionFrom[0]][$positionFrom[1]];
+        unset($gameTable[$positionFrom[0]][$positionFrom[1]]);
+
+        $session->game_bag = $gameTable;
+        $session->save();
+
+        return true;
     }
 
     /**

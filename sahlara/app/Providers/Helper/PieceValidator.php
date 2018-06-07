@@ -7,14 +7,28 @@ use App\Models\Piece;
 
 class PieceValidator
 {
+    /**
+     * @param Piece $piece
+     * @param $side
+     * @param $positionTo
+     * @param bool $existPieceTo
+     * @return bool
+     */
     public function validatePieceToPosition(Piece $piece, $side, $positionTo, $existPieceTo = false)
     {
         $positionFrom = $this->flipToBottomSide($piece->position, $side);
         $positionTo = $this->flipToBottomSide($positionTo, $side);
+        $pieceCode = ucfirst($piece->code);
 
-
+        return $this->{"valideate{$pieceCode}"}($positionFrom, $positionTo, $existPieceTo);
     }
 
+    /**
+     * @param array $position
+     * @param $side
+     * @return array
+     * @throws \Exception
+     */
     protected function flipToBottomSide(array $position, $side)
     {
         list ($y, $x) = $position;
@@ -106,10 +120,39 @@ class PieceValidator
      */
     protected function validateKnight($positionFrom, $positionTo, $existPieceTo)
     {
-        if (abs($positionFrom[0] - $positionTo[0]) === abs($positionTo[1] - $positionFrom[1])) {
+        if (abs($positionFrom[0] - $positionTo[0]) === 2 && abs($positionTo[1] - $positionFrom[1]) == 1
+            || abs($positionFrom[1] - $positionTo[1]) === 2 && abs($positionTo[0] - $positionFrom[0]) == 1
+        ) {
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * @param $positionFrom
+     * @param $positionTo
+     * @param $existPieceTo
+     * @return bool
+     */
+    protected function validateKing($positionFrom, $positionTo, $existPieceTo)
+    {
+        if (abs($positionFrom[0] - $positionTo[0]) < 2 && abs($positionTo[1] - $positionFrom[1]) < 2) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $positionFrom
+     * @param $positionTo
+     * @param $existPieceTo
+     * @return bool
+     */
+    protected function validateQueen($positionFrom, $positionTo, $existPieceTo)
+    {
+        return $this->validateRook($positionFrom, $positionTo, $existPieceTo)
+            || $this->validateBishop($positionFrom, $positionTo, $existPieceTo);
     }
 }
