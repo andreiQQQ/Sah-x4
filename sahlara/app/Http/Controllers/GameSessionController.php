@@ -96,12 +96,12 @@ class GameSessionController extends Controller
         $subscription->user_id = Auth::id();
         $subscription->session_id = $session->id;
 
-        $sides = range(1, 4);
+        $sides = range(0, 3);
         foreach ($otherSubscriptions as $otherSubscription) {
-            unset($sides[$otherSubscription->side]);
+            unset($sides[$otherSubscription->side - 1]);
         }
 
-        $subscription->side = array_pop($sides);
+        $subscription->side = array_pop($sides) + 1;
         $subscription->save();
         $otherSubscriptions->push($subscription);
 
