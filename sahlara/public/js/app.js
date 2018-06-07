@@ -53044,7 +53044,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         selectedSq: function selectedSq(col) {
             if (this.session.current_subscription_id == this.currentSubscription.id) {
-                console.log("start");
                 var isPossible = 0;
                 if (col.class.indexOf("sqPossible") != -1) {
                     isPossible = 1;
@@ -53053,26 +53052,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     for (var row = 0; row < 12; row++) {
                         for (var column = 0; column < 12; column++) {
                             if (this.gameTable[row][column].class.indexOf("sqSelected") != -1) {
-                                // return la server coordonatele
+                                console.log("response");
                             }
                         }
                     }
                 }
-                console.log(col.piece, col.piece.subscription_id, this.currentSubscription.id);
                 if (col.piece && col.piece.subscription_id == this.currentSubscription.id) {
-                    console.log("start2");
                     for (var _row = 0; _row < 12; _row++) {
                         for (var _column = 0; _column < 12; _column++) {
-                            var _index = this.gameTable[_row][_column].class.indexOf("sqSelected");
-                            if (_index != -1) {
-                                this.gameTable[_row][_column].class.splice(_index, 1);
+                            var index = this.gameTable[_row][_column].class.indexOf("sqSelected");
+                            if (index != -1) {
+                                this.gameTable[_row][_column].class.splice(index, 1);
                             }
-                            _index = this.gameTable[_row][_column].class.indexOf("sqPossible");
-                            if (_index != -1) {
-                                this.gameTable[_row][_column].class.splice(_index, 1);
-                                _index = this.gameTable[_row][_column].class.indexOf("attacked");
-                                if (_index != -1) {
-                                    this.gameTable[_row][_column].class.splice(_index, 1);
+                            index = this.gameTable[_row][_column].class.indexOf("sqPossible");
+                            if (index != -1) {
+                                this.gameTable[_row][_column].class.splice(index, 1);
+                                index = this.gameTable[_row][_column].class.indexOf("attacked");
+                                if (index != -1) {
+                                    this.gameTable[_row][_column].class.splice(index, 1);
                                 }
                             }
                         }
@@ -53082,9 +53079,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     var relativeY = void 0;
                     for (var _row2 = 0; _row2 < 12; _row2++) {
                         for (var _column2 = 0; _column2 < 12; _column2++) {
-                            if (this.gameTable[_row2][_column2].piece.position[0] == relativeY && this.gameTable[_row2][_column2].piece.position[1] == relativeX) {
+                            if (this.gameTable[_row2][_column2].piece && this.gameTable[_row2][_column2].piece.position[0] == col.piece.position[0] && this.gameTable[_row2][_column2].piece.position[1] == col.piece.position[1]) {
                                 relativeX = _column2;
-                                relativeY = _row2;
+                                relativeY = _row2;;
                                 break;
                             }
                         }
@@ -53094,52 +53091,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         if (relativeY == 10) {
                             this.gameTable[8][relativeX].class.push("sqPossible");
                         }
-                        if (relativeY - 1 >= 0 && relativeY - 1 < 12 && relativeX - 1 >= 0 && relativeX - 1 < 12 && this.gameTable[relativeY - 1][relativeX - 1].piece) {
+                        if (relativeY - 1 >= 0 && relativeX - 1 >= 0 && this.gameTable[relativeY - 1][relativeX - 1].piece) {
                             this.gameTable[relativeY - 1][relativeX - 1].class.push("sqPossible");
+                            this.gameTable[relativeY - 1][relativeX - 1].class.push("attacked");
                         }
-                        if (relativeY - 1 >= 0 && relativeY - 1 < 12 && relativeX + 1 >= 0 && relativeX + 1 < 12 && this.gameTable[relativeY - 1][relativeX + 1].piece) {
+                        if (relativeY - 1 >= 0 && relativeX + 1 < 12 && this.gameTable[relativeY - 1][relativeX + 1].piece) {
                             this.gameTable[relativeY - 1][relativeX + 1].class.push("sqPossible");
                             this.gameTable[relativeY - 1][relativeX + 1].class.push("attacked");
                         }
-                        if (relativeY - 1 >= 0 && relativeY - 1 < 12) {
+                        if (relativeY - 1 >= 0) {
                             this.gameTable[relativeY - 1][relativeX].class.push("sqPossible");
                         }
                     } else if (col.piece.code == "rook") {
-                        var _index2 = relativeY - 1;
-                        while (_index2 >= 0 && !this.gameTable[_index2][relativeX]) {
-                            this.gameTable[_index2][relativeX].class.push("sqPossible");
-                            _index2--;
+                        var _index = relativeY - 1;
+                        while (_index >= 0 && !this.gameTable[_index][relativeX].piece) {
+                            this.gameTable[_index][relativeX].class.push("sqPossible");
+                            _index--;
                         }
-                        if (_index2 >= 0) {
-                            this.gameTable[_index2][relativeX].class.push("sqPossible");
-                            this.gameTable[_index2][relativeX].class.push("attacked");
+                        if (_index >= 0) {
+                            this.gameTable[_index][relativeX].class.push("sqPossible");
+                            this.gameTable[_index][relativeX].class.push("attacked");
                         }
-                        _index2 = relativeY + 1;
-                        while (_index2 < 12 && !this.gameTable[_index2][relativeX]) {
-                            this.gameTable[_index2][relativeX].class.push("sqPossible");
-                            _index2++;
+
+                        _index = relativeY + 1;
+                        while (_index < 12 && !this.gameTable[_index][relativeX].piece) {
+                            this.gameTable[_index][relativeX].class.push("sqPossible");
+                            _index++;
                         }
-                        if (_index2 < 12) {
-                            this.gameTable[_index2][relativeX].class.push("sqPossible");
-                            this.gameTable[_index2][relativeX].class.push("attacked");
+                        if (_index < 12) {
+                            this.gameTable[_index][relativeX].class.push("sqPossible");
+                            this.gameTable[_index][relativeX].class.push("attacked");
                         }
-                        _index2 = relativeX - 1;
-                        while (_index2 >= 0 && !this.gameTable[relativeX][_index2]) {
-                            this.gameTable[relativeX][_index2].class.push("sqPossible");
-                            _index2--;
+
+                        _index = relativeX - 1;
+                        while (_index >= 0 && !this.gameTable[relativeY][_index].piece) {
+                            this.gameTable[relativeY][_index].class.push("sqPossible");
+                            _index--;
                         }
-                        if (_index2 >= 0) {
-                            this.gameTable[relativeX][_index2].class.push("sqPossible");
-                            this.gameTable[relativeX][_index2].class.push("attacked");
+                        if (_index >= 0) {
+                            this.gameTable[relativeY][_index].class.push("sqPossible");
+                            this.gameTable[relativeY][_index].class.push("attacked");
                         }
-                        _index2 = relativeX + 1;
-                        while (_index2 < 12 && !this.gameTable[relativeX][_index2]) {
-                            this.gameTable[relativeX][_index2].class.push("sqPossible");
-                            _index2++;
+
+                        _index = relativeX + 1;
+                        while (_index < 12 && !this.gameTable[relativeY][_index].piece) {
+                            this.gameTable[relativeY][_index].class.push("sqPossible");
+                            _index++;
                         }
-                        if (_index2 < 12) {
-                            this.gameTable[relativeX][_index2].class.push("sqPossible");
-                            this.gameTable[relativeX][_index2].class.push("attacked");
+                        if (_index < 12) {
+                            this.gameTable[relativeY][_index].class.push("sqPossible");
+                            this.gameTable[relativeY][_index].class.push("attacked");
                         }
                     } else if (col.piece.code == "bishop") {
                         var indexX = relativeX + 1;
@@ -53198,6 +53199,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             this.gameTable[_indexY][_indexX].class.push("sqPossible");
                             this.gameTable[_indexY][_indexX].class.push("attacked");
                         }
+
                         _indexX = relativeX - 1;
                         _indexY = relativeY + 1;
                         while (_indexX >= 0 && _indexY < 12 && !this.gameTable[_indexY][_indexX]) {
@@ -53209,6 +53211,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             this.gameTable[_indexY][_indexX].class.push("sqPossible");
                             this.gameTable[_indexY][_indexX].class.push("attacked");
                         }
+
                         _indexX = relativeX + 1;
                         _indexY = relativeY - 1;
                         while (_indexX < 12 && _indexY >= 0 && !this.gameTable[_indexY][_indexX]) {
@@ -53220,6 +53223,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             this.gameTable[_indexY][_indexX].class.push("sqPossible");
                             this.gameTable[_indexY][_indexX].class.push("attacked");
                         }
+
                         _indexX = relativeX - 1;
                         _indexY = relativeY - 1;
                         while (_indexX >= 0 && _indexY >= 0 && !this.gameTable[_indexY][_indexX]) {
@@ -53231,41 +53235,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             this.gameTable[_indexY][_indexX].class.push("sqPossible");
                             this.gameTable[_indexY][_indexX].class.push("attacked");
                         }
-                        var _index3 = relativeY - 1;
-                        while (_index3 >= 0 && !this.gameTable[_index3][relativeX]) {
-                            this.gameTable[_index3][relativeX].class.push("sqPossible");
-                            _index3--;
+
+                        var _index2 = relativeY - 1;
+                        while (_index2 >= 0 && !this.gameTable[_index2][relativeX].piece) {
+                            this.gameTable[_index2][relativeX].class.push("sqPossible");
+                            _index2--;
                         }
-                        if (_index3 >= 0) {
-                            this.gameTable[_index3][relativeX].class.push("sqPossible");
-                            this.gameTable[_index3][relativeX].class.push("attacked");
+                        if (_index2 >= 0) {
+                            this.gameTable[_index2][relativeX].class.push("sqPossible");
+                            this.gameTable[_index2][relativeX].class.push("attacked");
                         }
-                        _index3 = relativeY + 1;
-                        while (_index3 < 12 && !this.gameTable[_index3][relativeX]) {
-                            this.gameTable[_index3][relativeX].class.push("sqPossible");
-                            _index3++;
+
+                        _index2 = relativeY + 1;
+                        while (_index2 < 12 && !this.gameTable[_index2][relativeX].piece) {
+                            this.gameTable[_index2][relativeX].class.push("sqPossible");
+                            _index2++;
                         }
-                        if (_index3 < 12) {
-                            this.gameTable[_index3][relativeX].class.push("sqPossible");
-                            this.gameTable[_index3][relativeX].class.push("attacked");
+                        if (_index2 < 12) {
+                            this.gameTable[_index2][relativeX].class.push("sqPossible");
+                            this.gameTable[_index2][relativeX].class.push("attacked");
                         }
-                        _index3 = relativeX - 1;
-                        while (_index3 >= 0 && !this.gameTable[relativeX][_index3]) {
-                            this.gameTable[relativeX][_index3].class.push("sqPossible");
-                            _index3--;
+
+                        _index2 = relativeX - 1;
+                        while (_index2 >= 0 && !this.gameTable[relativeY][_index2].piece) {
+                            this.gameTable[relativeY][_index2].class.push("sqPossible");
+                            _index2--;
                         }
-                        if (_index3 >= 0) {
-                            this.gameTable[relativeX][_index3].class.push("sqPossible");
-                            this.gameTable[relativeX][_index3].class.push("attacked");
+                        if (_index2 >= 0) {
+                            this.gameTable[relativeY][_index2].class.push("sqPossible");
+                            this.gameTable[relativeY][_index2].class.push("attacked");
                         }
-                        _index3 = relativeX + 1;
-                        while (_index3 < 12 && !this.gameTable[relativeX][_index3]) {
-                            this.gameTable[relativeX][_index3].class.push("sqPossible");
-                            _index3++;
+
+                        _index2 = relativeX + 1;
+                        while (_index2 < 12 && !this.gameTable[relativeY][_index2].piece) {
+                            this.gameTable[relativeY][_index2].class.push("sqPossible");
+                            _index2++;
                         }
-                        if (_index3 < 12) {
-                            this.gameTable[relativeX][_index3].class.push("sqPossible");
-                            this.gameTable[relativeX][_index3].class.push("attacked");
+                        if (_index2 < 12) {
+                            this.gameTable[relativeY][_index2].class.push("sqPossible");
+                            this.gameTable[relativeY][_index2].class.push("attacked");
                         }
                     } else if (col.piece.code == "king") {
                         if (relativeX - 1 >= 0) {
@@ -53368,11 +53376,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }
                     for (var _row3 = 0; _row3 < 12; _row3++) {
                         for (var _column3 = 0; _column3 < 12; _column3++) {
-                            if (this.gameTable[_row3][_column3].class.indexOf("attacked") != -1 && this.gameTable[_row3][_column3].piece.subscription_id == this.currentSubscription) {
-                                index = this.gameTable[_row3][_column3].class.indexOf("sqPossible");
-                                this.gameTable[_row3][_column3].class.splice(index, 1);
-                                index = this.gameTable[_row3][_column3].class.indexOf("attacked");
-                                this.gameTable[_row3][_column3].class.splice(index, 1);
+                            if (this.gameTable[_row3][_column3].piece && this.gameTable[_row3][_column3].class.indexOf("attacked") != -1 && this.gameTable[_row3][_column3].piece.subscription_id == this.currentSubscription.id) {
+                                var _index3 = this.gameTable[_row3][_column3].class.indexOf("sqPossible");
+                                this.gameTable[_row3][_column3].class.splice(_index3, 1);
+                                _index3 = this.gameTable[_row3][_column3].class.indexOf("attacked");
+                                this.gameTable[_row3][_column3].class.splice(_index3, 1);
                             }
                         }
                     }
