@@ -43,12 +43,73 @@ class PieceValidator
         return [$y, $x];
     }
 
+    /**
+     * @param $positionFrom
+     * @param $positionTo
+     * @param $existPieceTo
+     * @return bool
+     */
     protected function validatePawn($positionFrom, $positionTo, $existPieceTo)
     {
         if ($positionFrom[0] === 10 && $positionFrom[1] === $positionTo[1]) {
-            if (abs($positionFrom[0] - $positionTo[0]) < 3) {
+            if ($positionFrom[0] - $positionTo[0] < 3) {
                 return true;
             }
         }
+
+        if ($positionFrom[0] - $positionTo[0] < 2) {
+            if ($positionTo[1] === $positionFrom[1]) {
+                return true;
+            } else if ($existPieceTo && abs($positionTo[1] - $positionFrom[1]) == 1) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $positionFrom
+     * @param $positionTo
+     * @param $existPieceTo
+     * @return bool
+     */
+    protected function validateRook($positionFrom, $positionTo, $existPieceTo)
+    {
+        if ($positionFrom[0] === $positionTo[0] || $positionTo[1] === $positionFrom[1]) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $positionFrom
+     * @param $positionTo
+     * @param $existPieceTo
+     * @return bool
+     */
+    protected function validateBishop($positionFrom, $positionTo, $existPieceTo)
+    {
+        if (abs($positionFrom[0] - $positionTo[0]) === abs($positionTo[1] - $positionFrom[1])) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $positionFrom
+     * @param $positionTo
+     * @param $existPieceTo
+     * @return bool
+     */
+    protected function validateKnight($positionFrom, $positionTo, $existPieceTo)
+    {
+        if (abs($positionFrom[0] - $positionTo[0]) === abs($positionTo[1] - $positionFrom[1])) {
+            return true;
+        }
+
+        return false;
     }
 }
