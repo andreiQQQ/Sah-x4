@@ -21,11 +21,11 @@
 }
 
 .sqPossible {
-	border: 2px solid teal;
+	background-color: teal;
 }
 
 .attacked {
-	border: 2px solid red;
+	background-color: magenta;
 }
 
 .hidden { background-color: white !important }
