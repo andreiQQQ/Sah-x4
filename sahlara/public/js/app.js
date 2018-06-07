@@ -14028,9 +14028,9 @@ window.Popper = __webpack_require__(5).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(2);
+    window.$ = window.jQuery = __webpack_require__(2);
 
-  __webpack_require__(17);
+    __webpack_require__(17);
 } catch (e) {}
 
 /**
@@ -14052,9 +14052,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -14068,10 +14068,10 @@ if (token) {
 window.Pusher = __webpack_require__(38);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
-  broadcaster: 'pusher',
-  key: "efd3865ca6a5fec01c55",
-  cluster: "eu",
-  encrypted: true
+    broadcaster: 'pusher',
+    key: "",
+    cluster: "mt1",
+    encrypted: true
 });
 
 /***/ }),
@@ -14092,7 +14092,7 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.10';
+  var VERSION = '4.17.5';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -14516,14 +14516,6 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   /** Used to access faster Node.js helpers. */
   var nodeUtil = (function() {
     try {
-      // Use `util.types` for Node.js 10+.
-      var types = freeModule && freeModule.require && freeModule.require('util').types;
-
-      if (types) {
-        return types;
-      }
-
-      // Legacy `process.binding('util')` for Node.js < 10.
       return freeProcess && freeProcess.binding && freeProcess.binding('util');
     } catch (e) {}
   }());
@@ -31220,7 +31212,7 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-  * Bootstrap v4.1.1 (https://getbootstrap.com/)
+  * Bootstrap v4.1.0 (https://getbootstrap.com/)
   * Copyright 2011-2018 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
@@ -31291,7 +31283,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): util.js
+   * Bootstrap (v4.1.0): util.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -31424,7 +31416,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): alert.js
+   * Bootstrap (v4.1.0): alert.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -31436,7 +31428,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'alert';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.alert';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -31473,11 +31465,9 @@ module.exports = function(module) {
 
       // Public
       _proto.close = function close(element) {
-        var rootElement = this._element;
+        element = element || this._element;
 
-        if (element) {
-          rootElement = this._getRootElement(element);
-        }
+        var rootElement = this._getRootElement(element);
 
         var customEvent = this._triggerCloseEvent(rootElement);
 
@@ -31599,7 +31589,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): button.js
+   * Bootstrap (v4.1.0): button.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -31611,7 +31601,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'button';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.button';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -31763,7 +31753,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): carousel.js
+   * Bootstrap (v4.1.0): carousel.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -31775,7 +31765,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'carousel';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.carousel';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -32264,7 +32254,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): collapse.js
+   * Bootstrap (v4.1.0): collapse.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -32276,7 +32266,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'collapse';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.collapse';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -32547,7 +32537,7 @@ module.exports = function(module) {
           var $this = $$$1(this);
           var data = $this.data(DATA_KEY);
 
-          var _config = _objectSpread({}, Default, $this.data(), typeof config === 'object' && config ? config : {});
+          var _config = _objectSpread({}, Default, $this.data(), typeof config === 'object' && config);
 
           if (!data && _config.toggle && /show|hide/.test(config)) {
             _config.toggle = false;
@@ -32624,7 +32614,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): dropdown.js
+   * Bootstrap (v4.1.0): dropdown.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -32636,7 +32626,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'dropdown';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.dropdown';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -33106,7 +33096,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): modal.js
+   * Bootstrap (v4.1.0): modal.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -33118,7 +33108,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'modal';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.modal';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -33594,7 +33584,7 @@ module.exports = function(module) {
         return this.each(function () {
           var data = $$$1(this).data(DATA_KEY);
 
-          var _config = _objectSpread({}, Default, $$$1(this).data(), typeof config === 'object' && config ? config : {});
+          var _config = _objectSpread({}, Modal.Default, $$$1(this).data(), typeof config === 'object' && config);
 
           if (!data) {
             data = new Modal(this, _config);
@@ -33684,7 +33674,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): tooltip.js
+   * Bootstrap (v4.1.0): tooltip.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -33696,7 +33686,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'tooltip';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.tooltip';
     var EVENT_KEY = "." + DATA_KEY;
     var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
@@ -34201,7 +34191,7 @@ module.exports = function(module) {
       };
 
       _proto._getConfig = function _getConfig(config) {
-        config = _objectSpread({}, this.constructor.Default, $$$1(this.element).data(), typeof config === 'object' && config ? config : {});
+        config = _objectSpread({}, this.constructor.Default, $$$1(this.element).data(), config);
 
         if (typeof config.delay === 'number') {
           config.delay = {
@@ -34351,7 +34341,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): popover.js
+   * Bootstrap (v4.1.0): popover.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -34363,7 +34353,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'popover';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.popover';
     var EVENT_KEY = "." + DATA_KEY;
     var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
@@ -34548,7 +34538,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): scrollspy.js
+   * Bootstrap (v4.1.0): scrollspy.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -34560,7 +34550,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'scrollspy';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.scrollspy';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -34687,7 +34677,7 @@ module.exports = function(module) {
 
 
       _proto._getConfig = function _getConfig(config) {
-        config = _objectSpread({}, Default, typeof config === 'object' && config ? config : {});
+        config = _objectSpread({}, Default, config);
 
         if (typeof config.target !== 'string') {
           var id = $$$1(config.target).attr('id');
@@ -34860,7 +34850,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): tab.js
+   * Bootstrap (v4.1.0): tab.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -34872,7 +34862,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'tab';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.0';
     var DATA_KEY = 'bs.tab';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -35108,7 +35098,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): index.js
+   * Bootstrap (v4.0.0): index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -52277,7 +52267,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Subscribers.vue"
+Component.options.__file = "resources\\assets\\js\\components\\Subscribers.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -52286,9 +52276,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-fea891b8", Component.options)
+    hotAPI.createRecord("data-v-652bfc38", Component.options)
   } else {
-    hotAPI.reload("data-v-fea891b8", Component.options)
+    hotAPI.reload("data-v-652bfc38", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52384,7 +52374,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-fea891b8", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-652bfc38", module.exports)
   }
 }
 
@@ -52418,7 +52408,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/Notification.vue"
+Component.options.__file = "resources\\assets\\js\\components\\Notification.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -52427,9 +52417,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-66002d22", Component.options)
+    hotAPI.createRecord("data-v-9de98b3c", Component.options)
   } else {
-    hotAPI.reload("data-v-66002d22", Component.options)
+    hotAPI.reload("data-v-9de98b3c", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52450,13 +52440,13 @@ var content = __webpack_require__(47);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(49)("4ca9f156", content, false, {});
+var update = __webpack_require__(49)("43872588", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66002d22\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Notification.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-66002d22\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Notification.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9de98b3c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Notification.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9de98b3c\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Notification.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -52894,7 +52884,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-66002d22", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-9de98b3c", module.exports)
   }
 }
 
@@ -52924,7 +52914,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources/assets/js/components/GameTable.vue"
+Component.options.__file = "resources\\assets\\js\\components\\GameTable.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -52933,9 +52923,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1d42ee56", Component.options)
+    hotAPI.createRecord("data-v-4ab08395", Component.options)
   } else {
-    hotAPI.reload("data-v-1d42ee56", Component.options)
+    hotAPI.reload("data-v-4ab08395", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -52962,6 +52952,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -52977,7 +52968,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         currentSubscription: {
             type: Object
         }
-
     },
 
     mounted: function mounted() {
@@ -52994,12 +52984,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
 
                 try {
-                    squareClasses[row][column].piece = this.session.game_bag[row][column];
+                    squareClasses[row][column].piece = JSON.parse(this.session.game_bag[row][column]);
                 } catch (e) {}
             }
         }
 
         this.gameTable = squareClasses;
+        if (this.currentSubscription.side == 4) {
+            var n = 12;
+            for (var i = 0; i < n / 2; i++) {
+                for (var j = i; j < n - i - 1; j++) {
+                    var tmp = this.gameTable[i][j];
+                    this.gameTable[i][j] = this.gameTable[j][n - i - 1];
+                    this.gameTable[j][n - i - 1] = this.gameTable[n - i - 1][n - j - 1];
+                    this.gameTable[n - i - 1][n - j - 1] = this.gameTable[n - j - 1][i];
+                    this.gameTable[n - j - 1][i] = tmp;
+                }
+            }
+        } else if (this.currentSubscription.side == 2) {
+            var _n = 12;
+            for (var _i = 0; _i < _n / 2; _i++) {
+                for (var _j = _i; _j < _n - _i - 1; _j++) {
+                    var _tmp = this.gameTable[_i][_j];
+                    this.gameTable[_i][_j] = this.gameTable[_n - _j - 1][_i];
+                    this.gameTable[_n - _j - 1][_i] = this.gameTable[_n - _i - 1][_n - _j - 1];
+                    this.gameTable[_n - _i - 1][_n - _j - 1] = this.gameTable[_j][_n - _i - 1];
+                    this.gameTable[_j][_n - _i - 1] = _tmp;
+                }
+            }
+        } else if (this.currentSubscription.side == 1) {
+            var _n2 = 12;
+            for (var _i2 = 0; _i2 < _n2 / 2; _i2++) {
+                for (var _j2 = _i2; _j2 < _n2 - _i2 - 1; _j2++) {
+                    var _tmp2 = this.gameTable[_i2][_j2];
+                    this.gameTable[_i2][_j2] = this.gameTable[_n2 - _j2 - 1][_i2];
+                    this.gameTable[_n2 - _j2 - 1][_i2] = this.gameTable[_n2 - _i2 - 1][_n2 - _j2 - 1];
+                    this.gameTable[_n2 - _i2 - 1][_n2 - _j2 - 1] = this.gameTable[_j2][_n2 - _i2 - 1];
+                    this.gameTable[_j2][_n2 - _i2 - 1] = _tmp2;
+                }
+            }
+            for (var _i3 = 0; _i3 < _n2 / 2; _i3++) {
+                for (var _j3 = _i3; _j3 < _n2 - _i3 - 1; _j3++) {
+                    var _tmp3 = this.gameTable[_i3][_j3];
+                    this.gameTable[_i3][_j3] = this.gameTable[_n2 - _j3 - 1][_i3];
+                    this.gameTable[_n2 - _j3 - 1][_i3] = this.gameTable[_n2 - _i3 - 1][_n2 - _j3 - 1];
+                    this.gameTable[_n2 - _i3 - 1][_n2 - _j3 - 1] = this.gameTable[_j3][_n2 - _i3 - 1];
+                    this.gameTable[_j3][_n2 - _i3 - 1] = _tmp3;
+                }
+            }
+        }
         this.session.subscriptions = this.session.subscriptions.reduce(function (carry, subscription) {
             carry[subscription.id] = subscription;
 
@@ -53008,7 +53041,345 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    methods: {}
+    methods: {
+        selectedSq: function selectedSq(col) {
+            if (this.session.current_subscription_id == this.currentSubscription.id) {
+                console.log("start");
+                var isPossible = 0;
+                if (col.class.indexOf("sqPossible") != -1) {
+                    isPossible = 1;
+                }
+                if (isPossible) {
+                    for (var row = 0; row < 12; row++) {
+                        for (var column = 0; column < 12; column++) {
+                            if (this.gameTable[row][column].class.indexOf("sqSelected") != -1) {
+                                // return la server coordonatele
+                            }
+                        }
+                    }
+                }
+                console.log(col.piece, col.piece.subscription_id, this.currentSubscription.id);
+                if (col.piece && col.piece.subscription_id == this.currentSubscription.id) {
+                    console.log("start2");
+                    for (var _row = 0; _row < 12; _row++) {
+                        for (var _column = 0; _column < 12; _column++) {
+                            var _index = this.gameTable[_row][_column].class.indexOf("sqSelected");
+                            if (_index != -1) {
+                                this.gameTable[_row][_column].class.splice(_index, 1);
+                            }
+                            _index = this.gameTable[_row][_column].class.indexOf("sqPossible");
+                            if (_index != -1) {
+                                this.gameTable[_row][_column].class.splice(_index, 1);
+                                _index = this.gameTable[_row][_column].class.indexOf("attacked");
+                                if (_index != -1) {
+                                    this.gameTable[_row][_column].class.splice(_index, 1);
+                                }
+                            }
+                        }
+                    }
+                    col.class.push("sqSelected");
+                    var relativeX = void 0;
+                    var relativeY = void 0;
+                    for (var _row2 = 0; _row2 < 12; _row2++) {
+                        for (var _column2 = 0; _column2 < 12; _column2++) {
+                            if (this.gameTable[_row2][_column2].piece.position[0] == relativeY && this.gameTable[_row2][_column2].piece.position[1] == relativeX) {
+                                relativeX = _column2;
+                                relativeY = _row2;
+                                break;
+                            }
+                        }
+                    }
+                    if (col.piece.code == "pawn") {
+                        console.log("pawn");
+                        if (relativeY == 10) {
+                            this.gameTable[8][relativeX].class.push("sqPossible");
+                        }
+                        if (relativeY - 1 >= 0 && relativeY - 1 < 12 && relativeX - 1 >= 0 && relativeX - 1 < 12 && this.gameTable[relativeY - 1][relativeX - 1].piece) {
+                            this.gameTable[relativeY - 1][relativeX - 1].class.push("sqPossible");
+                        }
+                        if (relativeY - 1 >= 0 && relativeY - 1 < 12 && relativeX + 1 >= 0 && relativeX + 1 < 12 && this.gameTable[relativeY - 1][relativeX + 1].piece) {
+                            this.gameTable[relativeY - 1][relativeX + 1].class.push("sqPossible");
+                            this.gameTable[relativeY - 1][relativeX + 1].class.push("attacked");
+                        }
+                        if (relativeY - 1 >= 0 && relativeY - 1 < 12) {
+                            this.gameTable[relativeY - 1][relativeX].class.push("sqPossible");
+                        }
+                    } else if (col.piece.code == "rook") {
+                        var _index2 = relativeY - 1;
+                        while (_index2 >= 0 && !this.gameTable[_index2][relativeX]) {
+                            this.gameTable[_index2][relativeX].class.push("sqPossible");
+                            _index2--;
+                        }
+                        if (_index2 >= 0) {
+                            this.gameTable[_index2][relativeX].class.push("sqPossible");
+                            this.gameTable[_index2][relativeX].class.push("attacked");
+                        }
+                        _index2 = relativeY + 1;
+                        while (_index2 < 12 && !this.gameTable[_index2][relativeX]) {
+                            this.gameTable[_index2][relativeX].class.push("sqPossible");
+                            _index2++;
+                        }
+                        if (_index2 < 12) {
+                            this.gameTable[_index2][relativeX].class.push("sqPossible");
+                            this.gameTable[_index2][relativeX].class.push("attacked");
+                        }
+                        _index2 = relativeX - 1;
+                        while (_index2 >= 0 && !this.gameTable[relativeX][_index2]) {
+                            this.gameTable[relativeX][_index2].class.push("sqPossible");
+                            _index2--;
+                        }
+                        if (_index2 >= 0) {
+                            this.gameTable[relativeX][_index2].class.push("sqPossible");
+                            this.gameTable[relativeX][_index2].class.push("attacked");
+                        }
+                        _index2 = relativeX + 1;
+                        while (_index2 < 12 && !this.gameTable[relativeX][_index2]) {
+                            this.gameTable[relativeX][_index2].class.push("sqPossible");
+                            _index2++;
+                        }
+                        if (_index2 < 12) {
+                            this.gameTable[relativeX][_index2].class.push("sqPossible");
+                            this.gameTable[relativeX][_index2].class.push("attacked");
+                        }
+                    } else if (col.piece.code == "bishop") {
+                        var indexX = relativeX + 1;
+                        var indexY = relativeY + 1;
+                        while (indexX < 12 && indexY < 12 && !this.gameTable[indexY][indexX]) {
+                            this.gameTable[indexY][indexX].class.push("sqPossible");
+                            indexX++;
+                            indexY++;
+                        }
+                        if (indexX < 12 && indexY < 12) {
+                            this.gameTable[indexY][indexX].class.push("sqPossible");
+                            this.gameTable[indexY][indexX].class.push("attacked");
+                        }
+                        indexX = relativeX - 1;
+                        indexY = relativeY + 1;
+                        while (indexX >= 0 && indexY < 12 && !this.gameTable[indexY][indexX]) {
+                            this.gameTable[indexY][indexX].class.push("sqPossible");
+                            indexX--;
+                            indexY++;
+                        }
+                        if (indexX >= 0 && indexY < 12) {
+                            this.gameTable[indexY][indexX].class.push("sqPossible");
+                            this.gameTable[indexY][indexX].class.push("attacked");
+                        }
+                        indexX = relativeX + 1;
+                        indexY = relativeY - 1;
+                        while (indexX < 12 && indexY >= 0 && !this.gameTable[indexY][indexX]) {
+                            this.gameTable[indexY][indexX].class.push("sqPossible");
+                            indexX++;
+                            indexY--;
+                        }
+                        if (indexX < 12 && indexY >= 0) {
+                            this.gameTable[indexY][indexX].class.push("sqPossible");
+                            this.gameTable[indexY][indexX].class.push("attacked");
+                        }
+                        indexX = relativeX - 1;
+                        indexY = relativeY - 1;
+                        while (indexX >= 0 && indexY >= 0 && !this.gameTable[indexY][indexX]) {
+                            this.gameTable[indexY][indexX].class.push("sqPossible");
+                            indexX--;
+                            indexY--;
+                        }
+                        if (indexX >= 0 && indexY >= 0) {
+                            this.gameTable[indexY][indexX].class.push("sqPossible");
+                            this.gameTable[indexY][indexX].class.push("attacked");
+                        }
+                    } else if (col.piece.code == "queen") {
+                        var _indexX = relativeX + 1;
+                        var _indexY = relativeY + 1;
+                        while (_indexX < 12 && _indexY < 12 && !this.gameTable[_indexY][_indexX]) {
+                            this.gameTable[_indexY][_indexX].class.push("sqPossible");
+                            _indexX++;
+                            _indexY++;
+                        }
+                        if (_indexX < 12 && _indexY < 12) {
+                            this.gameTable[_indexY][_indexX].class.push("sqPossible");
+                            this.gameTable[_indexY][_indexX].class.push("attacked");
+                        }
+                        _indexX = relativeX - 1;
+                        _indexY = relativeY + 1;
+                        while (_indexX >= 0 && _indexY < 12 && !this.gameTable[_indexY][_indexX]) {
+                            this.gameTable[_indexY][_indexX].class.push("sqPossible");
+                            _indexX--;
+                            _indexY++;
+                        }
+                        if (_indexX >= 0 && _indexY < 12) {
+                            this.gameTable[_indexY][_indexX].class.push("sqPossible");
+                            this.gameTable[_indexY][_indexX].class.push("attacked");
+                        }
+                        _indexX = relativeX + 1;
+                        _indexY = relativeY - 1;
+                        while (_indexX < 12 && _indexY >= 0 && !this.gameTable[_indexY][_indexX]) {
+                            this.gameTable[_indexY][_indexX].class.push("sqPossible");
+                            _indexX++;
+                            _indexY--;
+                        }
+                        if (_indexX < 12 && _indexY >= 0) {
+                            this.gameTable[_indexY][_indexX].class.push("sqPossible");
+                            this.gameTable[_indexY][_indexX].class.push("attacked");
+                        }
+                        _indexX = relativeX - 1;
+                        _indexY = relativeY - 1;
+                        while (_indexX >= 0 && _indexY >= 0 && !this.gameTable[_indexY][_indexX]) {
+                            this.gameTable[_indexY][_indexX].class.push("sqPossible");
+                            _indexX--;
+                            _indexY--;
+                        }
+                        if (_indexX >= 0 && _indexY >= 0) {
+                            this.gameTable[_indexY][_indexX].class.push("sqPossible");
+                            this.gameTable[_indexY][_indexX].class.push("attacked");
+                        }
+                        var _index3 = relativeY - 1;
+                        while (_index3 >= 0 && !this.gameTable[_index3][relativeX]) {
+                            this.gameTable[_index3][relativeX].class.push("sqPossible");
+                            _index3--;
+                        }
+                        if (_index3 >= 0) {
+                            this.gameTable[_index3][relativeX].class.push("sqPossible");
+                            this.gameTable[_index3][relativeX].class.push("attacked");
+                        }
+                        _index3 = relativeY + 1;
+                        while (_index3 < 12 && !this.gameTable[_index3][relativeX]) {
+                            this.gameTable[_index3][relativeX].class.push("sqPossible");
+                            _index3++;
+                        }
+                        if (_index3 < 12) {
+                            this.gameTable[_index3][relativeX].class.push("sqPossible");
+                            this.gameTable[_index3][relativeX].class.push("attacked");
+                        }
+                        _index3 = relativeX - 1;
+                        while (_index3 >= 0 && !this.gameTable[relativeX][_index3]) {
+                            this.gameTable[relativeX][_index3].class.push("sqPossible");
+                            _index3--;
+                        }
+                        if (_index3 >= 0) {
+                            this.gameTable[relativeX][_index3].class.push("sqPossible");
+                            this.gameTable[relativeX][_index3].class.push("attacked");
+                        }
+                        _index3 = relativeX + 1;
+                        while (_index3 < 12 && !this.gameTable[relativeX][_index3]) {
+                            this.gameTable[relativeX][_index3].class.push("sqPossible");
+                            _index3++;
+                        }
+                        if (_index3 < 12) {
+                            this.gameTable[relativeX][_index3].class.push("sqPossible");
+                            this.gameTable[relativeX][_index3].class.push("attacked");
+                        }
+                    } else if (col.piece.code == "king") {
+                        if (relativeX - 1 >= 0) {
+                            this.gameTable[relativeY][relativeX - 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY][relativeX - 1].piece) {
+                                this.gameTable[relativeY][relativeX - 1].class.push("attacked");
+                            }
+                        }
+                        if (relativeX + 1 < 12) {
+                            this.gameTable[relativeY][relativeX + 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY][relativeX + 1].piece) {
+                                this.gameTable[relativeY][relativeX + 1].class.push("attacked");
+                            }
+                        }
+                        if (relativeY - 1 >= 0) {
+                            this.gameTable[relativeY - 1][relativeX].class.push("sqPossible");
+                            if (this.gameTable[relativeY - 1][relativeX].piece) {
+                                this.gameTable[relativeY - 1][relativeX].class.push("attacked");
+                            }
+                        }
+                        if (relativeY + 1 < 12) {
+                            this.gameTable[relativeY + 1][relativeX].class.push("sqPossible");
+                            if (this.gameTable[relativeY + 1][relativeX].piece) {
+                                this.gameTable[relativeY + 1][relativeX].class.push("attacked");
+                            }
+                        }
+                        if (relativeY - 1 >= 0 && relativeX - 1 >= 0) {
+                            this.gameTable[relativeY - 1][relativeX - 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY - 1][relativeX - 1].piece) {
+                                this.gameTable[relativeY - 1][relativeX - 1].class.push("attacked");
+                            }
+                        }
+                        if (relativeY - 1 >= 0 && relativeX + 1 < 12) {
+                            this.gameTable[relativeY - 1][relativeX + 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY - 1][relativeX + 1].piece) {
+                                this.gameTable[relativeY - 1][relativeX + 1].class.push("attacked");
+                            }
+                        }
+                        if (relativeY + 1 < 12 && relativeX - 1 >= 0) {
+                            this.gameTable[relativeY + 1][relativeX - 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY + 1][relativeX - 1].piece) {
+                                this.gameTable[relativeY + 1][relativeX - 1].class.push("attacked");
+                            }
+                        }
+                        if (relativeY + 1 < 12 && relativeX + 1 < 12) {
+                            this.gameTable[relativeY + 1][relativeX + 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY + 1][relativeX + 1].piece) {
+                                this.gameTable[relativeY + 1][relativeX + 1].class.push("attacked");
+                            }
+                        }
+                    } else if (col.piece.code == "knight") {
+                        if (relativeY + 2 < 12 && relativeX + 1 < 12) {
+                            this.gameTable[relativeY + 2][relativeX + 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY + 2][relativeX + 1].piece) {
+                                this.gameTable[relativeY + 2][relativeX + 1].class.push("attacked");
+                            }
+                        }
+                        if (relativeY + 1 < 12 && relativeX + 2 < 12) {
+                            this.gameTable[relativeY + 1][relativeX + 2].class.push("sqPossible");
+                            if (this.gameTable[relativeY + 1][relativeX + 2].piece) {
+                                this.gameTable[relativeY + 1][relativeX + 2].class.push("attacked");
+                            }
+                        }
+                        if (relativeY - 1 >= 0 && relativeX + 2 < 12) {
+                            this.gameTable[relativeY - 1][relativeX + 2].class.push("sqPossible");
+                            if (this.gameTable[relativeY - 1][relativeX + 2].piece) {
+                                this.gameTable[relativeY - 1][relativeX + 2].class.push("attacked");
+                            }
+                        }
+                        if (relativeY - 2 >= 0 && relativeX + 1 < 12) {
+                            this.gameTable[relativeY - 2][relativeX + 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY - 2][relativeX + 1].piece) {
+                                this.gameTable[relativeY - 2][relativeX + 1].class.push("attacked");
+                            }
+                        }
+                        if (relativeY - 2 >= 0 && relativeX - 1 >= 0) {
+                            this.gameTable[relativeY - 2][relativeX - 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY - 2][relativeX - 1].piece) {
+                                this.gameTable[relativeY - 2][relativeX - 1].class.push("attacked");
+                            }
+                        }
+                        if (relativeY - 1 >= 0 && relativeX - 2 >= 0) {
+                            this.gameTable[relativeY - 1][relativeX - 2].class.push("sqPossible");
+                            if (this.gameTable[relativeY - 1][relativeX - 2].piece) {
+                                this.gameTable[relativeY - 1][relativeX - 2].class.push("attacked");
+                            }
+                        }
+                        if (relativeY + 1 < 12 && relativeX - 2 >= 0) {
+                            this.gameTable[relativeY + 1][relativeX - 2].class.push("sqPossible");
+                            if (this.gameTable[relativeY + 1][relativeX - 2].piece) {
+                                this.gameTable[relativeY + 1][relativeX - 2].class.push("attacked");
+                            }
+                        }
+                        if (relativeY + 2 < 12 && relativeX - 1 >= 0) {
+                            this.gameTable[relativeY + 2][relativeX - 1].class.push("sqPossible");
+                            if (this.gameTable[relativeY + 2][relativeX - 1].piece) {
+                                this.gameTable[relativeY + 2][relativeX - 1].class.push("attacked");
+                            }
+                        }
+                    }
+                    for (var _row3 = 0; _row3 < 12; _row3++) {
+                        for (var _column3 = 0; _column3 < 12; _column3++) {
+                            if (this.gameTable[_row3][_column3].class.indexOf("attacked") != -1 && this.gameTable[_row3][_column3].piece.subscription_id == this.currentSubscription) {
+                                index = this.gameTable[_row3][_column3].class.indexOf("sqPossible");
+                                this.gameTable[_row3][_column3].class.splice(index, 1);
+                                index = this.gameTable[_row3][_column3].class.indexOf("attacked");
+                                this.gameTable[_row3][_column3].class.splice(index, 1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 });
 
 /***/ }),
@@ -53022,20 +53393,47 @@ var render = function() {
   return _c(
     "div",
     { staticClass: "styledGame" },
-    _vm._l(_vm.gameTable, function(row, keyRow) {
-      return _c(
-        "div",
-        { staticClass: "row" },
-        _vm._l(row, function(col, keyCol) {
-          return _c(
-            "div",
-            { class: col.class, on: { click: function($event) {} } },
-            [col.piece ? [_vm._v(_vm._s(col.piece.code))] : _vm._e()],
-            2
-          )
-        })
-      )
-    })
+    [
+      _c("div", [_vm._v(" " + _vm._s(_vm.currentSubscription.id))]),
+      _vm._v(" "),
+      _vm._l(_vm.gameTable, function(row, keyRow) {
+        return _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(row, function(col, keyCol) {
+            return _c(
+              "div",
+              {
+                class: col.class,
+                on: {
+                  click: [
+                    function($event) {},
+                    function($event) {
+                      _vm.selectedSq(col)
+                    }
+                  ]
+                }
+              },
+              [
+                col.piece
+                  ? [
+                      _vm._v(
+                        _vm._s(col.piece.code) +
+                          " " +
+                          _vm._s(col.piece.position[0]) +
+                          " " +
+                          _vm._s(col.piece.position[1])
+                      )
+                    ]
+                  : _vm._e()
+              ],
+              2
+            )
+          })
+        )
+      })
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -53044,7 +53442,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1d42ee56", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-4ab08395", module.exports)
   }
 }
 
