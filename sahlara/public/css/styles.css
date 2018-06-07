@@ -5,7 +5,7 @@
 .square {
 	width: 65px;
 	height: 65px;
-	border-width: 0;
+	border: 1px solid black;
 }
 
 .dark {
@@ -28,4 +28,12 @@
 	background-color: magenta;
 }
 
-.hidden { background-color: white !important }
+.hidden {
+	background-color: white !important;
+	border-width: 0 !important;
+}
+
+img {
+	max-width: 65px;
+	max-height: 65px;
+}

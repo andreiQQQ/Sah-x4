@@ -4,7 +4,7 @@
         <div v-for="(row, keyRow) in gameTable" class="row">
             <div v-for="(col, keyCol) in row" v-on:click=""
                     :class="col.class" @click="selectedSq(col)">
-                <template v-if="col.piece">{{ col.piece.code }} {{ col.piece.position[0]}} {{col.piece.position[1] }}</template>
+                <template v-if="col.piece"> <img :src="'/images/s' + session.subscriptions[col.piece.subscription_id].side + '_' + col.piece.code + '.png'" > </template>
             </div>
         </div>
     </div>
@@ -106,7 +106,7 @@
                     for (let i = 0; i < n / 2; i++) {
                         for (let j = i; j < n - i - 1; j++) {
                             let tmp = this.gameTable[i][j];
-                            this.gameTable[i][j] = this.gameTable[n - j - 1][i];
+                            this.gameTable[i][j] = this.gameTable[n - j - 1][i];;
                             this.gameTable[n - j - 1][i] = this.gameTable[n - i - 1][n - j - 1];
                             this.gameTable[n - i - 1][n - j - 1] = this.gameTable[j][n - i - 1];
                             this.gameTable[j][n - i - 1] = tmp;
