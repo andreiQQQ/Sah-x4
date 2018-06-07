@@ -20,7 +20,7 @@ class PieceValidator
         $positionTo = $this->flipToBottomSide($positionTo, $side);
         $pieceCode = ucfirst($piece->code);
 
-        return $this->{"valideate{$pieceCode}"}($positionFrom, $positionTo, $existPieceTo);
+        return $this->{"validate{$pieceCode}"}($positionFrom, $positionTo, $existPieceTo);
     }
 
     /**

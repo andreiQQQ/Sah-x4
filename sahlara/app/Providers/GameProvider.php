@@ -125,7 +125,16 @@ class GameProvider
             }
         }
 
-        $gameTable = array_reduce($gameTable, function ($gameTable, $piece) {
+        return $this->mapByPiecePosition($gameTable);
+    }
+
+    /**
+     * @param array $gameTable
+     * @return mixed
+     */
+    protected function mapByPiecePosition(array $gameTable)
+    {
+        return array_reduce($gameTable, function ($gameTable, $piece) {
             list ($y, $x) = $piece->position;
             /** @var $piece Piece */
             if (!isset($gameTable[$y])) {
@@ -136,8 +145,6 @@ class GameProvider
 
             return $gameTable;
         }, []);
-
-        return $gameTable;
     }
 
     /**
@@ -152,7 +159,7 @@ class GameProvider
             return false;
         }
 
-        if (!$this->validatePosition($positionFrom) || $this->validatePosition($positionTo)) {
+        if (!$this->validatePosition($positionFrom) || !$this->validatePosition($positionTo)) {
             return false;
         }
 
@@ -162,15 +169,21 @@ class GameProvider
         }
 
         $pieceTo = $this->getPiece($session, $positionTo);
-        if ($this->pieceValidator->validatePieceToPosition($pieceFrom, $positionTo, $pieceTo !== false)) {
+        if (!$this->pieceValidator->validatePieceToPosition(
+            $pieceFrom,
+            $pieceFrom->subscription->side,
+            $positionTo,
+            $pieceTo !== false)
+        ) {
             return false;
         }
 
         $gameTable = $session->game_bag;
-        $gameTable[$positionTo[0]][$positionTo[1]] = $gameTable[$positionFrom[0]][$positionFrom[1]];
+        $pieceFrom->position = $positionTo;
+        $gameTable[$positionTo[0]][$positionTo[1]] = json_encode($pieceFrom);
         unset($gameTable[$positionFrom[0]][$positionFrom[1]]);
 
-        $session->game_bag = $gameTable;
+        $session->game_bag = $this->mapByPiecePosition($gameTable);
         $session->save();
 
         return true;
@@ -184,7 +197,7 @@ class GameProvider
     public function getPiece(GameSession $session, array $position)
     {
         list ($y, $x) = $position;
-        $bag = @$session->game_bag[$y][$x];
+        $bag = @json_decode($session->game_bag[$y][$x], JSON_OBJECT_AS_ARRAY);
         if (!$bag) {
             return false;
         }

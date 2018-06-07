@@ -23,6 +23,9 @@
             currentSubscription: {
                 type: Object,
             },
+            handleUri: {
+                type: String,
+            }
         },
 
         mounted() {
@@ -113,7 +116,11 @@
                         for (let row = 0; row < 12; row++) {
                             for (let column = 0; column < 12; column++) {
                                 if (this.gameTable[row][column].class.indexOf("sqSelected") != -1) {
-                                    console.log("response");
+                                    console.log(col);
+                                    axios.post(this.handleUri, {
+                                        'position_from': this.gameTable[row][column].piece.position,
+                                        'position_to': col.piece.position,
+                                    });
                                 }
                             }
                         }

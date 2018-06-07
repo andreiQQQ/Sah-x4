@@ -36,6 +36,7 @@
                         <game-table
                                 :current-subscription="{{ json_encode($currentSubscription) }}"
                                 :session="{{ json_encode($session) }}"
+                                handle-uri="{{ route('game.handle', ['session' => $session]) }}"
                         >
                         </game-table>
                         </div>
