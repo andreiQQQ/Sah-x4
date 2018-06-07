@@ -19,3 +19,7 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('sah.subscriber.{sessionId}', function ($user, $sessionId) {
     return Auth::check();
 });
+
+Broadcast::channel('sah.game.{sessionId}', function ($user, $sessionId) {
+    return Auth::check();
+});

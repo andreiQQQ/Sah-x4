@@ -1,4 +1,4 @@
-<template @notification="showNotification({ text })">
+<template>
     <div v-show="show" id="notification" class="col-3">
         {{ text }}
     </div>
@@ -27,11 +27,15 @@
             },
         },
 
+        mounted() {
+            VueEvents.$on('notification', e => this.showNotification(e))
+        },
+
         methods: {
-            showNotification(text) {
-                this.text = text;
+            showNotification(event) {
+                this.text = event.text;
                 this.show = true;
-                //setTimeout(() => this.show = false, this.timeout);
+                setTimeout(() => this.show = false, this.timeout);
             },
         }
     }

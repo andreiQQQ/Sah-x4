@@ -23,7 +23,7 @@ class GameEvent implements ShouldBroadcast
      * GameEvent constructor.
      * @param $session
      */
-    public function __construct($session)
+    public function __construct(GameSession $session)
     {
         $this->session = $session;
     }

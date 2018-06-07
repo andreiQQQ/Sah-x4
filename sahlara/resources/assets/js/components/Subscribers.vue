@@ -1,6 +1,6 @@
 <template>
     <div class="float-right" v-on:update-subscribers="updateSubscribers()">
-        <span class="badge badge-success" v-for="subscriber in subscribers">
+        <span class="badge badge-success mr-1" v-for="subscriber in subscribers">
             {{ subscriber.name }}
         </span>
     </div>
@@ -26,7 +26,7 @@
             Echo.private(`sah.subscriber.${this.gameSession}`)
                 .listen('SubscribeEvent', (e) => {
                     this.subscribers.push(e.user);
-                    this.$emit('notification', {
+                    VueEvents.$emit('notification', {
                         text: `User '${e.user.name}' subscribed to this game.`
                     });
                 });

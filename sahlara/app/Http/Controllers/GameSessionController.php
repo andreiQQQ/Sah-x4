@@ -116,6 +116,7 @@ class GameSessionController extends Controller
             broadcast(new GameEvent($session));
         }
 
+        $session->subscribers;
         return redirect()->route('session.show', [
             'session' => $session,
         ]);

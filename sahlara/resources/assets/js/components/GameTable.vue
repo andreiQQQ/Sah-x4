@@ -29,89 +29,113 @@
         },
 
         mounted() {
-            let squareClasses = {};
-            for (let row = 0; row < 12; row++) {
-                squareClasses[row] = {};
-                for (let column = 0; column < 12; column++) {
-                    if ((column < 2 && row < 2) || (column < 2 && row > 9) ||
-                        (column > 9 && row < 2) || (column > 9 && row > 9)) {
-                        squareClasses[row][column] = {class: ["square", "hidden"]};
-                    }
-                    else if ((column % 2 == 1 && row % 2 == 1) || (column % 2 == 0 && row % 2 == 0)) {
-                        squareClasses[row][column] = {class: ["square", "light"]};
-                    }
-                    else if ((column % 2 == 0 && row % 2 == 1) || (column % 2 == 1 && row % 2 == 0)) {
-                        squareClasses[row][column] = {class: ["square", "dark"]};
-                    }
+            Echo.private(`sah.game.${this.session.id}`)
+                .listen('GameEvent', (e) => {
+                    this.session.game_bag = e.session.game_bag;
+                    this.session.current_subscription_id = e.session.current_subscription_id;
+                    this.updateGameTable();
+                    VueEvents.$emit('notification', {
+                        text: `User '${this.session.subscribers[this.session.subscriptions[this.session.current_subscription_id].user_id].name}' playing now.`
+                    });
+                });
 
-                    try {
-                        squareClasses[row][column].piece = JSON.parse(this.session.game_bag[row][column]);
-                    } catch (e) {
-
-                    }
-                }
-            }
-
-            this.gameTable = squareClasses;
-            for (let row = 0; row < 12; row++) {
-                for (let column = 0; column < 12; column++) {
-                    this.gameTable[row][column].noPiece = [row, column];
-                }
-            }
-
-            if (this.currentSubscription.side == 4) {
-                let n = 12;
-                for (let i = 0; i < n / 2; i++) {
-                    for (let j = i; j < n - i - 1; j++) {
-                        let tmp = this.gameTable[i][j];
-                        this.gameTable[i][j] = this.gameTable[j][n - i - 1];
-                        this.gameTable[j][n - i - 1] = this.gameTable[n - i - 1][n - j - 1];
-                        this.gameTable[n - i - 1][n - j - 1] = this.gameTable[n - j - 1][i];
-                        this.gameTable[n - j - 1][i] = tmp;
-                    }
-                }
-            }
-            else if (this.currentSubscription.side == 2) {
-                let n = 12;
-                for (let i = 0; i < n / 2; i++) {
-                    for (let j = i; j < n - i - 1; j++) {
-                        let tmp = this.gameTable[i][j];
-                        this.gameTable[i][j] = this.gameTable[n - j - 1][i];
-                        this.gameTable[n - j - 1][i] = this.gameTable[n - i - 1][n - j - 1];
-                        this.gameTable[n - i - 1][n - j - 1] = this.gameTable[j][n - i - 1];
-                        this.gameTable[j][n - i - 1] = tmp;
-                    }
-                }
-            }
-            else if (this.currentSubscription.side == 1) {
-                let n = 12;
-                for (let i = 0; i < n / 2; i++) {
-                    for (let j = i; j < n - i - 1; j++) {
-                        let tmp = this.gameTable[i][j];
-                        this.gameTable[i][j] = this.gameTable[n - j - 1][i];
-                        this.gameTable[n - j - 1][i] = this.gameTable[n - i - 1][n - j - 1];
-                        this.gameTable[n - i - 1][n - j - 1] = this.gameTable[j][n - i - 1];
-                        this.gameTable[j][n - i - 1] = tmp;
-                    }
-                }
-                for (let i = 0; i < n / 2; i++) {
-                    for (let j = i; j < n - i - 1; j++) {
-                        let tmp = this.gameTable[i][j];
-                        this.gameTable[i][j] = this.gameTable[n - j - 1][i];
-                        this.gameTable[n - j - 1][i] = this.gameTable[n - i - 1][n - j - 1];
-                        this.gameTable[n - i - 1][n - j - 1] = this.gameTable[j][n - i - 1];
-                        this.gameTable[j][n - i - 1] = tmp;
-                    }
-                }
-            }
-            this.session.subscriptions = this.session.subscriptions.reduce((carry, subscription) => {
-                carry[subscription.id] = subscription;
-
-                return carry;
-            }, {})
+            this.updateGameTable();
+            this.mapSubscribers();
         },
 
         methods: {
+            mapSubscribers() {
+                this.session.subscriptions = this.session.subscriptions.reduce((carry, subscription) => {
+                    carry[subscription.id] = subscription;
+
+                    return carry;
+                }, {});
+
+                this.session.subscribers = this.session.subscribers.reduce((carry, subscriber) => {
+                    carry[subscriber.id] = subscriber;
+
+                    return carry;
+                }, {});
+            },
+
+            updateGameTable() {
+                let squareClasses = {};
+                for (let row = 0; row < 12; row++) {
+                    squareClasses[row] = {};
+                    for (let column = 0; column < 12; column++) {
+                        if ((column < 2 && row < 2) || (column < 2 && row > 9) ||
+                            (column > 9 && row < 2) || (column > 9 && row > 9)) {
+                            squareClasses[row][column] = {class: ["square", "hidden"]};
+                        }
+                        else if ((column % 2 == 1 && row % 2 == 1) || (column % 2 == 0 && row % 2 == 0)) {
+                            squareClasses[row][column] = {class: ["square", "light"]};
+                        }
+                        else if ((column % 2 == 0 && row % 2 == 1) || (column % 2 == 1 && row % 2 == 0)) {
+                            squareClasses[row][column] = {class: ["square", "dark"]};
+                        }
+
+                        try {
+                            squareClasses[row][column].piece = JSON.parse(this.session.game_bag[row][column]);
+                        } catch (e) {
+
+                        }
+                    }
+                }
+
+                this.gameTable = squareClasses;
+                for (let row = 0; row < 12; row++) {
+                    for (let column = 0; column < 12; column++) {
+                        this.gameTable[row][column].noPiece = [row, column];
+                    }
+                }
+
+                if (this.currentSubscription.side == 4) {
+                    let n = 12;
+                    for (let i = 0; i < n / 2; i++) {
+                        for (let j = i; j < n - i - 1; j++) {
+                            let tmp = this.gameTable[i][j];
+                            this.gameTable[i][j] = this.gameTable[j][n - i - 1];
+                            this.gameTable[j][n - i - 1] = this.gameTable[n - i - 1][n - j - 1];
+                            this.gameTable[n - i - 1][n - j - 1] = this.gameTable[n - j - 1][i];
+                            this.gameTable[n - j - 1][i] = tmp;
+                        }
+                    }
+                }
+                else if (this.currentSubscription.side == 2) {
+                    let n = 12;
+                    for (let i = 0; i < n / 2; i++) {
+                        for (let j = i; j < n - i - 1; j++) {
+                            let tmp = this.gameTable[i][j];
+                            this.gameTable[i][j] = this.gameTable[n - j - 1][i];
+                            this.gameTable[n - j - 1][i] = this.gameTable[n - i - 1][n - j - 1];
+                            this.gameTable[n - i - 1][n - j - 1] = this.gameTable[j][n - i - 1];
+                            this.gameTable[j][n - i - 1] = tmp;
+                        }
+                    }
+                }
+                else if (this.currentSubscription.side == 1) {
+                    let n = 12;
+                    for (let i = 0; i < n / 2; i++) {
+                        for (let j = i; j < n - i - 1; j++) {
+                            let tmp = this.gameTable[i][j];
+                            this.gameTable[i][j] = this.gameTable[n - j - 1][i];
+                            this.gameTable[n - j - 1][i] = this.gameTable[n - i - 1][n - j - 1];
+                            this.gameTable[n - i - 1][n - j - 1] = this.gameTable[j][n - i - 1];
+                            this.gameTable[j][n - i - 1] = tmp;
+                        }
+                    }
+                    for (let i = 0; i < n / 2; i++) {
+                        for (let j = i; j < n - i - 1; j++) {
+                            let tmp = this.gameTable[i][j];
+                            this.gameTable[i][j] = this.gameTable[n - j - 1][i];
+                            this.gameTable[n - j - 1][i] = this.gameTable[n - i - 1][n - j - 1];
+                            this.gameTable[n - i - 1][n - j - 1] = this.gameTable[j][n - i - 1];
+                            this.gameTable[j][n - i - 1] = tmp;
+                        }
+                    }
+                }
+            },
+
             selectedSq(col) {
                 if (this.session.current_subscription_id == this.currentSubscription.id) {
                     let isPossible = 0;
@@ -122,10 +146,9 @@
                         for (let row = 0; row < 12; row++) {
                             for (let column = 0; column < 12; column++) {
                                 if (this.gameTable[row][column].class.indexOf("sqSelected") != -1) {
-                                    console.log(col);
                                     axios.post(this.handleUri, {
                                         'position_from': this.gameTable[row][column].piece.position,
-                                        'position_to': col.piece.position,
+                                        'position_to': col.noPiece,
                                     });
                                 }
                             }
@@ -163,7 +186,6 @@
                             }
                         }
                         if (col.piece.code == "pawn") {
-                            console.log("pawn");
                             if (relativeY == 10) {
                                 this.gameTable[8][relativeX].class.push("sqPossible");
                             }
