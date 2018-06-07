@@ -63,10 +63,22 @@ class GameSessionController extends Controller
         $session->subscribers;
         $session->subscriptions;
 
+        $user = Auth::user();
+
+        $currentSubscription = @$session->subscriptions->filter(function ($subscription) use ($user) {
+            /** @var $subscription GameSubscription */
+            if ($subscription->user_id === $user->id) {
+                return true;
+            }
+
+            return false;
+        })->pop();
+
         return view('sessions.show', [
             'sessionUser' => $session->user,
             'currentUser' => Auth::user(),
             'session' => $session,
+            'currentSubscription' => $currentSubscription,
         ]);
     }
 

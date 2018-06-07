@@ -19,6 +19,10 @@
             session: {
                 type: Object,
             },
+            currentSubscription: {
+                type: Object,
+            }
+
         },
 
         mounted() {

@@ -67,7 +67,7 @@ class Piece implements \JsonSerializable
     /**
      * @return array
      */
-    public function toJson()
+    public function toArray()
     {
         return [
             'subscription_id' => $this->subscription->id,
@@ -81,6 +81,6 @@ class Piece implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return $this->toJson();
+        return json_encode($this->toArray());
     }
 }

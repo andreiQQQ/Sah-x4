@@ -52973,7 +52973,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: {
         session: {
             type: Object
+        },
+        currentSubscription: {
+            type: Object
         }
+
     },
 
     mounted: function mounted() {
