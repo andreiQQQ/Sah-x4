@@ -53,6 +53,12 @@
             }
 
             this.gameTable = squareClasses;
+            for (let row = 0; row < 12; row++) {
+                for (let column = 0; column < 12; column++) {
+                    this.gameTable[row][column].noPiece = [row, column];
+                }
+            }
+
             if (this.currentSubscription.side == 4) {
                 let n = 12;
                 for (let i = 0; i < n / 2; i++) {
