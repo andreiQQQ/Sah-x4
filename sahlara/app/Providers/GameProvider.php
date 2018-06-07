@@ -180,10 +180,10 @@ class GameProvider
 
         $gameTable = $session->game_bag;
         $pieceFrom->position = $positionTo;
-        $gameTable[$positionTo[0]][$positionTo[1]] = json_encode($pieceFrom);
+        $gameTable[$positionTo[0]][$positionTo[1]] = $pieceFrom;
         unset($gameTable[$positionFrom[0]][$positionFrom[1]]);
 
-        $session->game_bag = $this->mapByPiecePosition($gameTable);
+        $session->game_bag = $gameTable;
         $session->save();
 
         return true;
