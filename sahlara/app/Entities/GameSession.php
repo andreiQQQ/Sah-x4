@@ -32,11 +32,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereUserId($value)
  * @mixin \Eloquent
  * @property-read \App\Entities\GameSubscription $currentSubscription
+ * @property string|null $fail_subscriptions
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereFailSubscriptions($value)
  */
 class GameSession extends Model
 {
     protected $casts = [
-        'game_bag' => 'array'
+        'game_bag' => 'array',
+        'fail_subscriptions' => 'array',
     ];
 
     protected $guarded = [

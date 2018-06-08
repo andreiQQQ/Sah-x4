@@ -129,25 +129,6 @@ class GameProvider
     }
 
     /**
-     * @param array $gameTable
-     * @return mixed
-     */
-    protected function mapByPiecePosition(array $gameTable)
-    {
-        return array_reduce($gameTable, function ($gameTable, $piece) {
-            list ($y, $x) = $piece->position;
-            /** @var $piece Piece */
-            if (!isset($gameTable[$y])) {
-                $gameTable[$y] = [];
-            }
-
-            $gameTable[$y][$x] = $piece;
-
-            return $gameTable;
-        }, []);
-    }
-
-    /**
      * @param GameSession $session
      * @param array $positionFrom
      * @param array $positionTo
@@ -178,6 +159,10 @@ class GameProvider
             return false;
         }
 
+        if ($pieceTo && $pieceTo->subscription->id === $pieceFrom->subscription->id) {
+            return false;
+        }
+
         $gameTable = $session->game_bag;
         $pieceFrom->position = $positionTo;
         $gameTable[$positionTo[0]][$positionTo[1]] = $pieceFrom;
@@ -186,7 +171,60 @@ class GameProvider
         $session->game_bag = $gameTable;
         $session->save();
 
+        $this->switchPiecesOnKingFail($session, $pieceFrom, $pieceTo);
+
         return true;
+    }
+
+    /**
+     * @param GameSession $session
+     * @param Piece $pieceFrom
+     * @param Piece|false $pieceTo
+     */
+    protected function switchPiecesOnKingFail(GameSession $session, $pieceFrom, $pieceTo)
+    {
+        if (!$pieceTo || $pieceTo->code !== Piece::KING) {
+            return;
+        }
+
+        $gameTable = $session->game_bag;
+        $switchedGameTable = [];
+        foreach ($gameTable as $row) {
+            foreach ($row as $pieceBag) {
+                $piece = Piece::fromArray(json_decode($pieceBag, JSON_OBJECT_AS_ARRAY));
+                if ($piece->subscription->id === $pieceTo->subscription->id) {
+                    $piece->subscription = $pieceFrom->subscription;
+                }
+
+                $switchedGameTable[] = $piece;
+            }
+        }
+
+        $session->game_bag = $this->mapByPiecePosition($switchedGameTable);
+        $failSubscriptions = $session->fail_subscriptions ?: [];
+        $failSubscriptions[] = $pieceTo->subscription;
+        $session->fail_subscriptions = $failSubscriptions;
+
+        $session->save();
+    }
+
+    /**
+     * @param array $gameTable
+     * @return mixed
+     */
+    protected function mapByPiecePosition(array $gameTable)
+    {
+        return array_reduce($gameTable, function ($gameTable, $piece) {
+            list ($y, $x) = $piece->position;
+            /** @var $piece Piece */
+            if (!isset($gameTable[$y])) {
+                $gameTable[$y] = [];
+            }
+
+            $gameTable[$y][$x] = $piece;
+
+            return $gameTable;
+        }, []);
     }
 
     /**
@@ -194,7 +232,7 @@ class GameProvider
      * @param array $position
      * @return Piece|bool
      */
-    public function getPiece(GameSession $session, array $position)
+    protected function getPiece(GameSession $session, array $position)
     {
         list ($y, $x) = $position;
         $bag = @json_decode($session->game_bag[$y][$x], JSON_OBJECT_AS_ARRAY);
@@ -209,7 +247,7 @@ class GameProvider
      * @param array $position
      * @return bool
      */
-    public function validatePosition(array $position)
+    protected function validatePosition(array $position)
     {
         list ($y, $x) = $position;
         if ($y < 0 || $y > 11 || $x < 0 || $x > 11) {

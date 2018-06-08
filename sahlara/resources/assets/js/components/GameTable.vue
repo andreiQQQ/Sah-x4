@@ -31,6 +31,9 @@
         mounted() {
             Echo.private(`sah.game.${this.session.id}`)
                 .listen('GameEvent', (e) => {
+                    if (!this.session.current_subscription_id) {
+                        location.reload();
+                    }
                     this.session.game_bag = e.session.game_bag;
                     this.session.current_subscription_id = e.session.current_subscription_id;
                     this.updateGameTable();

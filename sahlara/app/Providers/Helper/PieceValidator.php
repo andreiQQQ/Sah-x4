@@ -31,7 +31,7 @@ class PieceValidator
      */
     protected function flipToBottomSide(array $position, $side)
     {
-        list ($y, $x) = $position;
+        list ($y, $x) = $position; // (2, 1) -> (10, 9)
 
         switch ($side) {
             case 1:
@@ -44,11 +44,11 @@ class PieceValidator
                 $y = $x1;
                 break;
             case 3:
+                break;
+            case 4:
                 $x1 = $x;
                 $x = 11 - $y;
                 $y = 11 - $x1;
-                break;
-            case 4:
                 break;
             default:
                 throw new \Exception("Unexpected side");
@@ -66,13 +66,13 @@ class PieceValidator
     protected function validatePawn($positionFrom, $positionTo, $existPieceTo)
     {
         if ($positionFrom[0] === 10 && $positionFrom[1] === $positionTo[1]) {
-            if ($positionFrom[0] - $positionTo[0] < 3) {
+            if (!$existPieceTo && $positionFrom[0] - $positionTo[0] < 3) {
                 return true;
             }
         }
 
         if ($positionFrom[0] - $positionTo[0] < 2) {
-            if ($positionTo[1] === $positionFrom[1]) {
+            if (!$existPieceTo && $positionTo[1] === $positionFrom[1]) {
                 return true;
             } else if ($existPieceTo && abs($positionTo[1] - $positionFrom[1]) == 1) {
                 return true;

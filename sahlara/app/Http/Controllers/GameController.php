@@ -33,11 +33,37 @@ class GameController extends Controller
         $positionFrom = $request->position_from;
         $positionTo = $request->position_to;
 
-        $this->gameProvider->performAction($session, $positionFrom, $positionTo);
+        if (!$this->gameProvider->performAction($session, $positionFrom, $positionTo)) {
+            return;
+        }
+
+        $failedSubscriptions = $session->fail_subscriptions ?: [];
+        if (count($failedSubscriptions) === 3) {
+            return;
+        }
 
         $currentSubscription = GameSubscription::find($session->current_subscription_id);
         $currentSide = $currentSubscription->side;
-        $currentSide = $currentSide > 3 ? 1 : $currentSide + 1;
+        while (true) {
+            $currentSide += 1;
+            if ($currentSide > 4) {
+                $currentSide = 1;
+            }
+
+            $excludedSide = array_filter($failedSubscriptions, function ($subscription) use ($currentSide) {
+                 if ($subscription['side'] === $currentSide) {
+                     return true;
+                 }
+
+                 return false;
+            });
+
+            if ($excludedSide) {
+                continue;
+            }
+
+            break;
+        }
 
         foreach ($session->subscriptions as $subscription) {
             if ($subscription->side === $currentSide) {
