@@ -1,6 +1,6 @@
 <template>
     <div class="styledGame">
-        <div> {{ currentSubscription.id }}</div>
+        <div v-show="gameover"><span class="text-success mr-1">Game Over!</span></div>
         <div v-for="(row, keyRow) in gameTable" class="row">
             <div v-for="(col, keyCol) in row" v-on:click=""
                     :class="col.class" @click="selectedSq(col)">
@@ -14,6 +14,7 @@
     export default {
         data: () => ({
             gameTable: {},
+            gameover: false,
         }),
 
         props: {
@@ -34,12 +35,19 @@
                     if (!this.session.current_subscription_id) {
                         location.reload();
                     }
+                    this.gameover = e.session.gameover;
                     this.session.game_bag = e.session.game_bag;
                     this.session.current_subscription_id = e.session.current_subscription_id;
                     this.updateGameTable();
-                    VueEvents.$emit('notification', {
-                        text: `User '${this.session.subscribers[this.session.subscriptions[this.session.current_subscription_id].user_id].name}' playing now.`
-                    });
+                    if (!this.gameover) {
+                        VueEvents.$emit('notification', {
+                            text: `User '${this.session.subscribers[this.session.subscriptions[this.session.current_subscription_id].user_id].name}' playing now.`
+                        });
+                    } else {
+                        VueEvents.$emit('notification', {
+                            text: `User '${this.session.subscribers[this.session.subscriptions[this.session.current_subscription_id].user_id].name}' won the game.`
+                        });
+                    }
                 });
 
             this.updateGameTable();
@@ -189,7 +197,9 @@
                             }
                         }
                         if (col.piece.code == "pawn") {
-                            if (relativeY == 10) {
+                            if (!this.gameTable[8][relativeX].piece &&
+                                !this.gameTable[9][relativeX].piece &&
+                                relativeY == 10) {
                                 this.gameTable[8][relativeX].class.push("sqPossible");
                             }
                             if (relativeY - 1 >= 0 && relativeX - 1 >= 0 &&
@@ -202,7 +212,7 @@
                                 this.gameTable[relativeY - 1][relativeX + 1].class.push("sqPossible");
                                 this.gameTable[relativeY - 1][relativeX + 1].class.push("attacked");
                             }
-                            if (relativeY - 1 >= 0) {
+                            if (relativeY - 1 >= 0 && !this.gameTable[relativeY - 1][relativeX].piece) {
                                 this.gameTable[relativeY - 1][relativeX].class.push("sqPossible");
                             }
                         }
@@ -250,7 +260,7 @@
                         else if (col.piece.code == "bishop") {
                             let indexX = relativeX + 1;
                             let indexY = relativeY + 1
-                            while (indexX < 12 && indexY < 12 && !this.gameTable[indexY][indexX]) {
+                            while (indexX < 12 && indexY < 12 && !this.gameTable[indexY][indexX].piece) {
                                 this.gameTable[indexY][indexX].class.push("sqPossible");
                                 indexX++;
                                 indexY++;
@@ -261,7 +271,7 @@
                             }
                             indexX = relativeX - 1;
                             indexY = relativeY + 1
-                            while (indexX >= 0 && indexY < 12 && !this.gameTable[indexY][indexX]) {
+                            while (indexX >= 0 && indexY < 12 && !this.gameTable[indexY][indexX].piece) {
                                 this.gameTable[indexY][indexX].class.push("sqPossible");
                                 indexX--;
                                 indexY++;
@@ -272,7 +282,7 @@
                             }
                             indexX = relativeX + 1;
                             indexY = relativeY - 1
-                            while (indexX < 12 && indexY >= 0 && !this.gameTable[indexY][indexX]) {
+                            while (indexX < 12 && indexY >= 0 && !this.gameTable[indexY][indexX].piece) {
                                 this.gameTable[indexY][indexX].class.push("sqPossible");
                                 indexX++;
                                 indexY--;
@@ -283,7 +293,7 @@
                             }
                             indexX = relativeX - 1;
                             indexY = relativeY - 1
-                            while (indexX >= 0 && indexY >= 0 && !this.gameTable[indexY][indexX]) {
+                            while (indexX >= 0 && indexY >= 0 && !this.gameTable[indexY][indexX].piece) {
                                 this.gameTable[indexY][indexX].class.push("sqPossible");
                                 indexX--;
                                 indexY--;
@@ -296,7 +306,7 @@
                         else if (col.piece.code == "queen") {
                             let indexX = relativeX + 1;
                             let indexY = relativeY + 1
-                            while (indexX < 12 && indexY < 12 && !this.gameTable[indexY][indexX]) {
+                            while (indexX < 12 && indexY < 12 && !this.gameTable[indexY][indexX].piece) {
                                 this.gameTable[indexY][indexX].class.push("sqPossible");
                                 indexX++;
                                 indexY++;
@@ -308,7 +318,7 @@
 
                             indexX = relativeX - 1;
                             indexY = relativeY + 1
-                            while (indexX >= 0 && indexY < 12 && !this.gameTable[indexY][indexX]) {
+                            while (indexX >= 0 && indexY < 12 && !this.gameTable[indexY][indexX].piece) {
                                 this.gameTable[indexY][indexX].class.push("sqPossible");
                                 indexX--;
                                 indexY++;
@@ -320,7 +330,7 @@
 
                             indexX = relativeX + 1;
                             indexY = relativeY - 1
-                            while (indexX < 12 && indexY >= 0 && !this.gameTable[indexY][indexX]) {
+                            while (indexX < 12 && indexY >= 0 && !this.gameTable[indexY][indexX].piece) {
                                 this.gameTable[indexY][indexX].class.push("sqPossible");
                                 indexX++;
                                 indexY--;
@@ -332,7 +342,7 @@
 
                             indexX = relativeX - 1;
                             indexY = relativeY - 1
-                            while (indexX >= 0 && indexY >= 0 && !this.gameTable[indexY][indexX]) {
+                            while (indexX >= 0 && indexY >= 0 && !this.gameTable[indexY][indexX].piece) {
                                 this.gameTable[indexY][indexX].class.push("sqPossible");
                                 indexX--;
                                 indexY--;

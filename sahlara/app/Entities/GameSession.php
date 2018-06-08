@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Entities\GameSubscription $currentSubscription
  * @property string|null $fail_subscriptions
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereFailSubscriptions($value)
+ * @property int|null $gameover
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Entities\GameSession whereGameover($value)
  */
 class GameSession extends Model
 {

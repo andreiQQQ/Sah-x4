@@ -39,6 +39,10 @@ class GameController extends Controller
 
         $failedSubscriptions = $session->fail_subscriptions ?: [];
         if (count($failedSubscriptions) === 3) {
+            $session->gameover = true;
+            $session->save();
+
+            broadcast(new GameEvent($session));
             return;
         }
 

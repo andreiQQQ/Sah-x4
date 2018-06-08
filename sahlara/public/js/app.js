@@ -52982,7 +52982,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            gameTable: {}
+            gameTable: {},
+            gameover: false
         };
     },
 
@@ -53005,12 +53006,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (!_this.session.current_subscription_id) {
                 location.reload();
             }
+            _this.gameover = e.session.gameover;
             _this.session.game_bag = e.session.game_bag;
             _this.session.current_subscription_id = e.session.current_subscription_id;
             _this.updateGameTable();
-            VueEvents.$emit('notification', {
-                text: 'User \'' + _this.session.subscribers[_this.session.subscriptions[_this.session.current_subscription_id].user_id].name + '\' playing now.'
-            });
+            if (!_this.gameover) {
+                VueEvents.$emit('notification', {
+                    text: 'User \'' + _this.session.subscribers[_this.session.subscriptions[_this.session.current_subscription_id].user_id].name + '\' playing now.'
+                });
+            } else {
+                VueEvents.$emit('notification', {
+                    text: 'User \'' + _this.session.subscribers[_this.session.subscriptions[_this.session.current_subscription_id].user_id].name + '\' won the game.'
+                });
+            }
         });
 
         this.updateGameTable();
@@ -53150,7 +53158,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     }
                     if (col.piece.code == "pawn") {
-                        if (relativeY == 10) {
+                        if (!this.gameTable[8][relativeX].piece && !this.gameTable[9][relativeX].piece && relativeY == 10) {
                             this.gameTable[8][relativeX].class.push("sqPossible");
                         }
                         if (relativeY - 1 >= 0 && relativeX - 1 >= 0 && this.gameTable[relativeY - 1][relativeX - 1].piece) {
@@ -53161,7 +53169,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             this.gameTable[relativeY - 1][relativeX + 1].class.push("sqPossible");
                             this.gameTable[relativeY - 1][relativeX + 1].class.push("attacked");
                         }
-                        if (relativeY - 1 >= 0) {
+                        if (relativeY - 1 >= 0 && !this.gameTable[relativeY - 1][relativeX].piece) {
                             this.gameTable[relativeY - 1][relativeX].class.push("sqPossible");
                         }
                     } else if (col.piece.code == "rook") {
@@ -53207,7 +53215,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     } else if (col.piece.code == "bishop") {
                         var indexX = relativeX + 1;
                         var indexY = relativeY + 1;
-                        while (indexX < 12 && indexY < 12 && !this.gameTable[indexY][indexX]) {
+                        while (indexX < 12 && indexY < 12 && !this.gameTable[indexY][indexX].piece) {
                             this.gameTable[indexY][indexX].class.push("sqPossible");
                             indexX++;
                             indexY++;
@@ -53218,7 +53226,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                         indexX = relativeX - 1;
                         indexY = relativeY + 1;
-                        while (indexX >= 0 && indexY < 12 && !this.gameTable[indexY][indexX]) {
+                        while (indexX >= 0 && indexY < 12 && !this.gameTable[indexY][indexX].piece) {
                             this.gameTable[indexY][indexX].class.push("sqPossible");
                             indexX--;
                             indexY++;
@@ -53229,7 +53237,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                         indexX = relativeX + 1;
                         indexY = relativeY - 1;
-                        while (indexX < 12 && indexY >= 0 && !this.gameTable[indexY][indexX]) {
+                        while (indexX < 12 && indexY >= 0 && !this.gameTable[indexY][indexX].piece) {
                             this.gameTable[indexY][indexX].class.push("sqPossible");
                             indexX++;
                             indexY--;
@@ -53240,7 +53248,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                         indexX = relativeX - 1;
                         indexY = relativeY - 1;
-                        while (indexX >= 0 && indexY >= 0 && !this.gameTable[indexY][indexX]) {
+                        while (indexX >= 0 && indexY >= 0 && !this.gameTable[indexY][indexX].piece) {
                             this.gameTable[indexY][indexX].class.push("sqPossible");
                             indexX--;
                             indexY--;
@@ -53252,7 +53260,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     } else if (col.piece.code == "queen") {
                         var _indexX = relativeX + 1;
                         var _indexY = relativeY + 1;
-                        while (_indexX < 12 && _indexY < 12 && !this.gameTable[_indexY][_indexX]) {
+                        while (_indexX < 12 && _indexY < 12 && !this.gameTable[_indexY][_indexX].piece) {
                             this.gameTable[_indexY][_indexX].class.push("sqPossible");
                             _indexX++;
                             _indexY++;
@@ -53264,7 +53272,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                         _indexX = relativeX - 1;
                         _indexY = relativeY + 1;
-                        while (_indexX >= 0 && _indexY < 12 && !this.gameTable[_indexY][_indexX]) {
+                        while (_indexX >= 0 && _indexY < 12 && !this.gameTable[_indexY][_indexX].piece) {
                             this.gameTable[_indexY][_indexX].class.push("sqPossible");
                             _indexX--;
                             _indexY++;
@@ -53276,7 +53284,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                         _indexX = relativeX + 1;
                         _indexY = relativeY - 1;
-                        while (_indexX < 12 && _indexY >= 0 && !this.gameTable[_indexY][_indexX]) {
+                        while (_indexX < 12 && _indexY >= 0 && !this.gameTable[_indexY][_indexX].piece) {
                             this.gameTable[_indexY][_indexX].class.push("sqPossible");
                             _indexX++;
                             _indexY--;
@@ -53288,7 +53296,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                         _indexX = relativeX - 1;
                         _indexY = relativeY - 1;
-                        while (_indexX >= 0 && _indexY >= 0 && !this.gameTable[_indexY][_indexX]) {
+                        while (_indexX >= 0 && _indexY >= 0 && !this.gameTable[_indexY][_indexX].piece) {
                             this.gameTable[_indexY][_indexX].class.push("sqPossible");
                             _indexX--;
                             _indexY--;
@@ -53464,7 +53472,24 @@ var render = function() {
     "div",
     { staticClass: "styledGame" },
     [
-      _c("div", [_vm._v(" " + _vm._s(_vm.currentSubscription.id))]),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.gameover,
+              expression: "gameover"
+            }
+          ]
+        },
+        [
+          _c("span", { staticClass: "text-success mr-1" }, [
+            _vm._v("Game Over!")
+          ])
+        ]
+      ),
       _vm._v(" "),
       _vm._l(_vm.gameTable, function(row, keyRow) {
         return _c(
